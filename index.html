@@ -2,8 +2,1691 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=interactive-demo.html">
-<title>Darwish Interserve Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DARWISH INTERSERVE — Interactive Demo</title>
+<style>
+:root {
+  --primary: #1B3A6B;
+  --primary-dark: #122649;
+  --primary-light: #2A5298;
+  --accent: #C9A84C;
+  --accent-light: #E8C96A;
+  --bg: #F5F6FA;
+  --text: #1A1A2E;
+  --text-sec: #6B7280;
+  --text-light: #9CA3AF;
+  --border: #E5E7EB;
+  --error: #EF4444;
+  --success: #10B981;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:#0f1923;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  padding:20px 0 40px;
+}
+#page-title{
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:12px;
+  opacity:0.7;
+}
+#helper-bar{
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:10px;
+  padding:8px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:16px;
+  color:#fff;
+  font-size:13px;
+  min-width:375px;
+}
+#helper-bar button{
+  background:none;
+  border:1px solid rgba(255,255,255,0.3);
+  color:#fff;
+  padding:4px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:12px;
+  transition:all 0.2s;
+}
+#helper-bar button:hover{background:rgba(255,255,255,0.15);}
+#helper-bar .skip-btn{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#000;
+  font-weight:700;
+  margin-left:auto;
+}
+#helper-bar .skip-btn:hover{background:var(--accent-light);}
+#screen-name{flex:1;text-align:center;font-size:12px;opacity:0.8;}
+.phone-shell{
+  width:375px;
+  height:812px;
+  background:#fff;
+  border-radius:44px;
+  border:10px solid #1a1a2a;
+  box-shadow:0 40px 120px rgba(0,0,0,0.8),0 0 0 1px rgba(255,255,255,0.05),inset 0 0 0 1px rgba(255,255,255,0.1);
+  position:relative;
+  overflow:hidden;
+}
+.notch{
+  position:absolute;
+  top:0;left:50%;transform:translateX(-50%);
+  width:130px;height:28px;
+  background:#1a1a2a;
+  border-radius:0 0 20px 20px;
+  z-index:100;
+}
+.status-bar{
+  position:absolute;
+  top:0;left:0;right:0;height:44px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 20px 0;
+  font-size:12px;font-weight:600;
+  z-index:99;
+  pointer-events:none;
+}
+.screen{
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  transform:translateX(100%);
+  transition:transform 0.3s ease;
+  overflow:hidden;
+}
+.screen.active{transform:translateX(0);}
+.screen.exit-left{transform:translateX(-100%);}
+
+/* ===== WELCOME SCREEN ===== */
+#screen-welcome{
+  background:linear-gradient(140deg,#122649,#1B3A6B,#2A5298);
+}
+.welcome-deco{position:absolute;border-radius:50%;}
+.deco1{width:300px;height:300px;top:-100px;right:-80px;background:rgba(255,255,255,0.04);}
+.deco2{width:200px;height:200px;top:120px;left:-60px;background:rgba(201,168,76,0.08);}
+.deco3{width:150px;height:150px;bottom:280px;right:-30px;background:rgba(255,255,255,0.05);}
+.welcome-top{
+  position:absolute;top:0;left:0;right:0;bottom:260px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 30px 20px;
+}
+.logo-box{
+  width:80px;height:80px;
+  background:rgba(255,255,255,0.95);
+  border-radius:18px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);
+  margin-bottom:16px;
+  overflow:hidden;
+  position:relative;
+}
+.logo-di{font-size:26px;font-weight:900;color:var(--primary-dark);letter-spacing:-1px;}
+.logo-gold-bar{
+  position:absolute;bottom:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-light));
+}
+.brand-text{text-align:center;color:#fff;margin-bottom:20px;}
+.brand-text .brand-main{font-size:18px;font-weight:800;letter-spacing:3px;}
+.brand-text .brand-sub{font-size:11px;letter-spacing:4px;opacity:0.8;margin-top:2px;}
+.brand-text .brand-type{font-size:9px;letter-spacing:3px;opacity:0.6;margin-top:1px;}
+.gold-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-light));border-radius:2px;margin:16px 0;}
+.tagline{color:#fff;font-size:16px;font-weight:600;text-align:center;margin-bottom:8px;}
+.subtitle{color:rgba(255,255,255,0.65);font-size:12px;text-align:center;line-height:1.5;}
+.welcome-card{
+  position:absolute;bottom:0;left:0;right:0;
+  background:#fff;
+  border-radius:32px 32px 0 0;
+  padding:28px 24px 24px;
+  box-shadow:0 -10px 40px rgba(0,0,0,0.2);
+}
+.welcome-card h2{font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.welcome-card p{font-size:13px;color:var(--text-sec);margin-bottom:20px;}
+.btn-gold{
+  width:100%;padding:15px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-light));
+  border:none;border-radius:12px;
+  font-size:15px;font-weight:700;color:#1a1a1a;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 4px 15px rgba(201,168,76,0.3);
+  margin-bottom:12px;
+}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,0.4);}
+.btn-outline{
+  width:100%;padding:15px;
+  background:transparent;
+  border:2px solid var(--primary);
+  border-radius:12px;
+  font-size:15px;font-weight:700;color:var(--primary);
+  cursor:pointer;transition:all 0.2s;
+  margin-bottom:16px;
+}
+.btn-outline:hover{background:var(--primary);color:#fff;}
+.welcome-footer{font-size:10px;color:var(--text-light);text-align:center;}
+
+/* ===== SCREEN HEADER ===== */
+.screen-header{
+  background:#fff;
+  padding:44px 20px 12px;
+  display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid var(--border);
+  position:relative;z-index:10;
+}
+.back-btn{
+  width:36px;height:36px;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;
+}
+.mini-logo{
+  width:32px;height:32px;background:var(--primary);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:12px;font-weight:800;
+  margin-left:auto;
+}
+
+/* ===== GUEST LOGIN ===== */
+#screen-guest-login{background:#fff;}
+.scroll-content{overflow-y:auto;height:calc(100% - 85px);}
+.form-area{padding:20px;}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:0.5px;
+  margin-bottom:16px;
+}
+.badge-gold{background:rgba(201,168,76,0.15);color:#9a7a2a;border:1px solid rgba(201,168,76,0.4);}
+.badge-blue{background:rgba(27,58,107,0.1);color:var(--primary);border:1px solid rgba(27,58,107,0.25);}
+.form-title{font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.form-subtitle{font-size:13px;color:var(--text-sec);margin-bottom:16px;line-height:1.5;}
+.info-card{
+  background:rgba(42,82,152,0.06);border:1px solid rgba(42,82,152,0.2);
+  border-radius:12px;padding:12px 14px;margin-bottom:20px;
+  font-size:12px;color:var(--primary);line-height:1.5;
+}
+.form-group{margin-bottom:16px;}
+.form-label{font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;display:block;}
+.input-wrap{position:relative;}
+.input-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.4;}
+.form-input{
+  width:100%;padding:13px 14px 13px 40px;
+  border:1.5px solid var(--border);border-radius:10px;
+  font-size:14px;color:var(--text);background:#fff;
+  outline:none;transition:border-color 0.2s;
+}
+.form-input:focus{border-color:var(--primary-light);}
+.form-input.error{border-color:var(--error);}
+.input-hint{font-size:11px;color:var(--text-light);margin-top:4px;}
+.error-msg{font-size:11px;color:var(--error);margin-top:4px;display:none;}
+.error-msg.show{display:block;}
+.btn-primary{
+  width:100%;padding:15px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-light));
+  border:none;border-radius:12px;
+  font-size:15px;font-weight:700;color:#fff;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 4px 15px rgba(27,58,107,0.3);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-bottom:16px;
+}
+.btn-primary:hover{transform:translateY(-1px);}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.terms-text{font-size:11px;color:var(--text-light);text-align:center;margin-bottom:16px;}
+.terms-text a{color:var(--primary);text-decoration:none;}
+.divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--text-light);font-size:12px;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.link-btn{
+  width:100%;padding:12px;
+  background:none;border:none;
+  font-size:13px;font-weight:600;color:var(--primary);
+  cursor:pointer;text-align:center;
+}
+.spinner{
+  width:18px;height:18px;
+  border:2px solid rgba(255,255,255,0.3);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin 0.8s linear infinite;
+  display:none;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ===== OTP SCREEN ===== */
+.otp-icon-wrap{
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(27,58,107,0.1);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;position:relative;
+}
+.otp-badge{
+  position:absolute;bottom:0;right:0;
+  width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid #fff;
+}
+.otp-boxes{
+  display:flex;gap:8px;justify-content:center;
+  margin:20px 0;
+}
+.otp-box{
+  width:48px;height:56px;
+  border:2px solid var(--border);border-radius:10px;
+  font-size:22px;font-weight:700;color:var(--primary);
+  text-align:center;outline:none;background:#fff;
+  transition:all 0.15s;
+  caret-color:transparent;
+}
+.otp-box:focus{border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(42,82,152,0.15);}
+.otp-box.filled{border-color:var(--primary-light);background:rgba(42,82,152,0.05);}
+.demo-hint{
+  background:rgba(255,193,7,0.12);border:1px solid rgba(255,193,7,0.4);
+  border-radius:10px;padding:10px 14px;margin-bottom:16px;
+  font-size:12px;color:#856404;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.demo-fill-btn{
+  background:rgba(255,193,7,0.3);border:1px solid rgba(255,193,7,0.5);
+  color:#856404;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;
+  white-space:nowrap;
+}
+.countdown{font-size:12px;color:var(--text-sec);text-align:center;margin-top:10px;}
+.resend-link{color:var(--primary);background:none;border:none;font-size:12px;cursor:pointer;font-weight:600;}
+.tips-card{
+  background:var(--bg);border-radius:10px;padding:12px;margin-top:16px;
+  font-size:11px;color:var(--text-sec);line-height:1.8;
+}
+
+/* ===== PASSWORD STRENGTH ===== */
+.pw-strength{margin-top:6px;}
+.pw-bars{display:flex;gap:3px;margin-bottom:4px;}
+.pw-bar{height:4px;flex:1;border-radius:2px;background:var(--border);transition:background 0.3s;}
+.pw-bar.w{background:#ef4444;}
+.pw-bar.f{background:#f97316;}
+.pw-bar.g{background:#eab308;}
+.pw-bar.s{background:#10b981;}
+.pw-label{font-size:11px;color:var(--text-sec);}
+
+/* ===== EMP OTP STEPS ===== */
+.steps-card{
+  background:var(--bg);border-radius:12px;padding:14px;margin-top:16px;
+}
+.step-row{display:flex;align-items:center;gap:10px;padding:6px 0;}
+.step-dot{
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;flex-shrink:0;
+}
+.step-dot.done{background:var(--success);color:#fff;}
+.step-dot.active{background:var(--primary);color:#fff;}
+.step-dot.pending{background:var(--border);color:var(--text-light);}
+.step-text{font-size:12px;color:var(--text-sec);}
+.step-text.active-step{font-weight:700;color:var(--primary);}
+
+/* ===== MAIN SCREEN ===== */
+#screen-main{background:var(--bg);}
+.main-header{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary),var(--primary-light));
+  padding:44px 20px 16px;
+  position:relative;
+}
+.main-header-top{display:flex;align-items:center;justify-content:space-between;}
+.greeting-sub{font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:2px;}
+.greeting-name{font-size:20px;font-weight:800;color:#fff;}
+.header-right{display:flex;align-items:center;gap:10px;}
+.bell-btn{
+  position:relative;width:38px;height:38px;
+  background:rgba(255,255,255,0.15);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;
+}
+.bell-badge{
+  position:absolute;top:-4px;right:-4px;
+  background:var(--error);color:#fff;
+  font-size:9px;font-weight:700;
+  width:16px;height:16px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--primary);
+}
+.avatar-btn{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-light));
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:800;color:#1a1a1a;cursor:pointer;border:none;
+  box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+.tab-content{
+  overflow-y:auto;
+  height:calc(100% - 142px);
+  padding:0;
+}
+.tab-bar{
+  position:absolute;bottom:0;left:0;right:0;
+  height:86px;background:#fff;
+  border-top:1px solid var(--border);
+  display:flex;
+  padding-bottom:20px;
+  box-shadow:0 -4px 20px rgba(0,0,0,0.08);
+}
+.tab-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  cursor:pointer;border:none;background:none;padding:8px 0 0;
+  color:var(--text-light);font-size:10px;font-weight:600;transition:color 0.2s;
+}
+.tab-item.active{color:var(--primary);}
+.tab-icon{width:22px;height:22px;display:flex;align-items:center;justify-content:center;}
+
+/* ===== HOME TAB ===== */
+.hero-card{
+  margin:12px;border-radius:16px;
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary-light));
+  padding:20px;color:#fff;
+  position:relative;overflow:hidden;
+}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent-light);margin-bottom:6px;}
+.hero-title{font-size:18px;font-weight:800;line-height:1.3;margin-bottom:8px;}
+.hero-subtitle{font-size:12px;opacity:0.8;line-height:1.5;}
+.hero-deco{
+  position:absolute;right:-20px;bottom:-20px;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(255,255,255,0.05);
+}
+.section-header{
+  padding:16px 16px 8px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.section-title{font-size:13px;font-weight:800;color:var(--text);letter-spacing:0.5px;text-transform:uppercase;}
+.section-link{font-size:11px;color:var(--primary);font-weight:600;}
+.about-text{
+  margin:0 12px 12px;
+  background:#fff;border-radius:12px;padding:14px;
+  font-size:12px;color:var(--text-sec);line-height:1.6;
+  border:1px solid var(--border);
+}
+.services-row{display:flex;gap:8px;padding:0 12px 12px;}
+.service-card{
+  flex:1;background:#fff;border-radius:12px;padding:12px 8px;
+  text-align:center;border:1px solid var(--border);
+  cursor:pointer;transition:all 0.2s;
+}
+.service-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.service-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;}
+.service-name{font-size:10px;font-weight:700;color:var(--text);line-height:1.3;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px 12px;}
+.stat-card{
+  background:#fff;border-radius:12px;padding:14px;
+  text-align:center;border:1px solid var(--border);
+}
+.stat-num{font-size:22px;font-weight:900;color:var(--primary);}
+.stat-label{font-size:10px;color:var(--text-sec);margin-top:2px;}
+.clients-row{
+  display:flex;gap:8px;padding:0 12px 12px;
+  overflow-x:auto;
+}
+.client-logo{
+  flex-shrink:0;width:56px;height:40px;
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:var(--primary);
+}
+.cta-row{display:flex;gap:8px;padding:0 12px 16px;}
+.cta-btn{
+  flex:1;padding:12px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;border:none;
+}
+.cta-primary{background:var(--primary);color:#fff;}
+.cta-outline{background:#fff;color:var(--primary);border:1.5px solid var(--primary) !important;}
+
+/* ===== EVENTS TAB ===== */
+.events-header-area{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  padding:12px 16px 16px;
+  color:#fff;
+}
+.events-title{font-size:18px;font-weight:800;}
+.events-subtitle{font-size:12px;opacity:0.7;margin-top:2px;}
+.featured-card{
+  margin:12px;border-radius:16px;
+  background:linear-gradient(135deg,#1B3A6B,#2A5298);
+  padding:18px;color:#fff;position:relative;overflow:hidden;
+}
+.featured-tag{
+  display:inline-block;background:var(--accent);color:#1a1a1a;
+  font-size:9px;font-weight:800;padding:3px 8px;border-radius:4px;margin-bottom:8px;letter-spacing:1px;
+}
+.featured-title{font-size:16px;font-weight:800;margin-bottom:4px;}
+.featured-date{font-size:11px;opacity:0.7;margin-bottom:8px;}
+.featured-desc{font-size:12px;opacity:0.8;line-height:1.5;margin-bottom:12px;}
+.read-more{font-size:12px;color:var(--accent-light);font-weight:600;cursor:pointer;background:none;border:none;}
+.updates-list{padding:0 12px 12px;}
+.update-card{
+  background:#fff;border-radius:12px;padding:14px;margin-bottom:8px;
+  border:1px solid var(--border);cursor:pointer;transition:all 0.2s;
+}
+.update-card:hover{border-color:var(--primary-light);}
+.update-type{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:6px;
+}
+.type-achievement{background:rgba(16,185,129,0.12);color:#065f46;}
+.type-csr{background:rgba(139,92,246,0.12);color:#5b21b6;}
+.update-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.update-date{font-size:11px;color:var(--text-light);}
+.update-desc{font-size:12px;color:var(--text-sec);line-height:1.5;margin-top:8px;display:none;}
+.update-desc.expanded{display:block;}
+.subscribe-card{
+  margin:0 12px 16px;background:var(--primary);border-radius:12px;
+  padding:16px;color:#fff;text-align:center;
+}
+.subscribe-card p{font-size:12px;opacity:0.8;margin-bottom:10px;}
+.subscribe-input-row{display:flex;gap:8px;}
+.subscribe-input{
+  flex:1;padding:10px;border-radius:8px;border:none;
+  font-size:12px;outline:none;
+}
+.subscribe-btn{
+  background:var(--accent);color:#1a1a1a;border:none;
+  padding:10px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;
+}
+
+/* ===== PROJECTS TAB ===== */
+.projects-header-area{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  padding:12px 16px 16px;color:#fff;
+}
+.stats-strip{
+  display:flex;background:#fff;margin:12px;border-radius:12px;
+  border:1px solid var(--border);overflow:hidden;
+}
+.stat-pill{
+  flex:1;padding:12px 8px;text-align:center;
+  border-right:1px solid var(--border);
+}
+.stat-pill:last-child{border-right:none;}
+.stat-pill-num{font-size:16px;font-weight:900;color:var(--primary);}
+.stat-pill-label{font-size:9px;color:var(--text-light);margin-top:1px;}
+.project-card{
+  margin:0 12px 10px;border-radius:14px;
+  background:#fff;border:1px solid var(--border);
+  overflow:hidden;cursor:pointer;transition:all 0.2s;
+}
+.project-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.1);}
+.project-banner{
+  height:70px;display:flex;align-items:center;
+  padding:0 16px;gap:12px;position:relative;
+}
+.project-num{font-size:10px;font-weight:800;color:rgba(255,255,255,0.6);letter-spacing:1px;}
+.project-icon-wrap{
+  width:40px;height:40px;background:rgba(255,255,255,0.2);
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+}
+.project-banner-title{font-size:15px;font-weight:800;color:#fff;}
+.project-body{padding:12px 14px;}
+.project-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;margin-bottom:6px;
+}
+.project-sites{font-size:12px;color:var(--text-sec);margin-bottom:8px;}
+.view-details-btn{
+  font-size:12px;font-weight:700;color:var(--primary);
+  background:none;border:none;cursor:pointer;padding:0;
+}
+
+/* ===== PROFILE TAB ===== */
+.profile-header{
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary-light));
+  padding:44px 20px 24px;
+  text-align:center;color:#fff;
+}
+.profile-avatar{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-light));
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;font-weight:900;color:#1a1a1a;
+  margin:0 auto 12px;
+  border:3px solid rgba(255,255,255,0.3);
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);
+}
+.profile-name{font-size:20px;font-weight:800;margin-bottom:4px;}
+.profile-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(255,255,255,0.15);
+  padding:4px 12px;border-radius:20px;font-size:11px;margin-bottom:8px;
+}
+.profile-contact{font-size:11px;opacity:0.7;}
+.profile-stats{
+  display:flex;background:#fff;
+  margin:-1px 12px 0;
+  border-radius:14px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  position:relative;z-index:1;
+  box-shadow:0 4px 20px rgba(0,0,0,0.1);
+}
+.profile-stat{flex:1;padding:14px 8px;text-align:center;border-right:1px solid var(--border);}
+.profile-stat:last-child{border-right:none;}
+.profile-stat-num{font-size:18px;font-weight:900;color:var(--primary);}
+.profile-stat-label{font-size:9px;color:var(--text-light);margin-top:2px;}
+.settings-section{margin:16px 12px 0;}
+.settings-label{font-size:10px;font-weight:800;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.settings-group{background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+.settings-row{
+  display:flex;align-items:center;padding:14px;
+  border-bottom:1px solid var(--border);cursor:pointer;
+  transition:background 0.15s;
+}
+.settings-row:last-child{border-bottom:none;}
+.settings-row:hover{background:var(--bg);}
+.settings-row-icon{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  margin-right:12px;flex-shrink:0;
+}
+.settings-row-label{flex:1;font-size:13px;font-weight:600;color:var(--text);}
+.settings-row-val{font-size:12px;color:var(--text-light);margin-right:8px;}
+.toggle{
+  width:40px;height:22px;background:var(--success);border-radius:11px;
+  position:relative;cursor:pointer;transition:background 0.2s;
+}
+.toggle::after{
+  content:'';position:absolute;
+  width:18px;height:18px;background:#fff;
+  border-radius:50%;top:2px;right:2px;
+  transition:right 0.2s;
+  box-shadow:0 1px 4px rgba(0,0,0,0.2);
+}
+.toggle.off{background:var(--border);}
+.toggle.off::after{right:20px;}
+.logout-btn{
+  margin:16px 12px 4px;width:calc(100% - 24px);
+  padding:14px;background:rgba(239,68,68,0.08);
+  border:1.5px solid rgba(239,68,68,0.3);border-radius:12px;
+  font-size:14px;font-weight:700;color:var(--error);
+  cursor:pointer;transition:all 0.2s;
+}
+.logout-btn:hover{background:rgba(239,68,68,0.15);}
+.version-text{text-align:center;font-size:11px;color:var(--text-light);padding:8px 0 16px;}
+
+/* ===== PROJECT DETAIL ===== */
+#screen-project-detail{background:var(--bg);}
+.detail-header{
+  display:flex;align-items:center;gap:12px;
+  padding:44px 16px 12px;background:#fff;
+  border-bottom:1px solid var(--border);
+}
+.detail-banner{
+  height:120px;display:flex;align-items:flex-end;
+  padding:16px;position:relative;
+}
+.detail-project-icon{
+  width:48px;height:48px;background:rgba(255,255,255,0.25);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  margin-right:12px;
+}
+.detail-project-name{font-size:20px;font-weight:800;color:#fff;line-height:1.2;}
+.detail-content{padding:16px;}
+.detail-section-title{font-size:11px;font-weight:800;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.detail-desc{font-size:13px;color:var(--text-sec);line-height:1.6;margin-bottom:16px;}
+.detail-stats-row{display:flex;gap:8px;margin-bottom:16px;}
+.detail-stat{
+  flex:1;background:#fff;border-radius:10px;padding:12px;
+  border:1px solid var(--border);text-align:center;
+}
+.detail-stat-val{font-size:16px;font-weight:800;color:var(--primary);}
+.detail-stat-label{font-size:10px;color:var(--text-light);margin-top:2px;}
+.services-list{background:#fff;border-radius:12px;padding:4px 0;border:1px solid var(--border);margin-bottom:16px;}
+.service-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;border-bottom:1px solid var(--border);
+  font-size:13px;color:var(--text);
+}
+.service-item:last-child{border-bottom:none;}
+.service-check{width:18px;height:18px;background:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.back-to-proj{
+  width:100%;padding:14px;
+  background:var(--primary);border:none;border-radius:12px;
+  font-size:14px;font-weight:700;color:#fff;cursor:pointer;
+  margin-bottom:20px;
+}
+
+/* ===== DIALOG ===== */
+.dialog-overlay{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,0.6);
+  display:none;align-items:center;justify-content:center;
+  z-index:200;padding:20px;
+}
+.dialog-overlay.show{display:flex;}
+.dialog-box{
+  background:#fff;border-radius:20px;padding:24px;
+  width:100%;max-width:300px;
+}
+.dialog-title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:8px;}
+.dialog-msg{font-size:13px;color:var(--text-sec);margin-bottom:20px;line-height:1.5;}
+.dialog-btns{display:flex;gap:10px;}
+.dialog-btn{
+  flex:1;padding:12px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;
+}
+.dialog-cancel{background:var(--bg);color:var(--text);}
+.dialog-confirm{background:var(--error);color:#fff;}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:2px;}
+</style>
 </head>
-<body><a href="interactive-demo.html">Click here for the demo</a></body>
+<body>
+<div id="page-title">DARWISH INTERSERVE — Interactive Demo</div>
+<div id="helper-bar">
+  <button onclick="goBack()">← Back</button>
+  <span id="screen-name">Welcome</span>
+  <button class="skip-btn" onclick="quickDemo()">🚀 Quick Demo</button>
+</div>
+<div class="phone-shell">
+  <div class="notch"></div>
+  <div class="status-bar" id="status-bar">
+    <span>9:41</span>
+    <span>▲▲▲ 100%</span>
+  </div>
+
+  <!-- SCREEN 1: WELCOME -->
+  <div class="screen active" id="screen-welcome">
+    <div class="welcome-deco deco1"></div>
+    <div class="welcome-deco deco2"></div>
+    <div class="welcome-deco deco3"></div>
+    <div class="welcome-top">
+      <div class="logo-box">
+        <div class="logo-di">DI</div>
+        <div class="logo-gold-bar"></div>
+      </div>
+      <div class="brand-text">
+        <div class="brand-main">DARWISH</div>
+        <div class="brand-sub">INTERSERVE</div>
+        <div class="brand-type">FACILITY MANAGEMENT</div>
+      </div>
+      <div class="gold-divider"></div>
+      <div class="tagline">Your integrated facility management platform</div>
+      <div class="subtitle">Delivering excellence across Qatar's most trusted facilities</div>
+    </div>
+    <div class="welcome-card">
+      <h2>Welcome</h2>
+      <p>Choose how you'd like to access the app</p>
+      <button class="btn-gold" onclick="showScreen('guest-login')">Continue as Guest</button>
+      <button class="btn-outline" onclick="showScreen('emp-register')">Employee Login / Register</button>
+      <div class="welcome-footer">Darwish Interserve Facility Management W.L.L. Qatar</div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: GUEST LOGIN -->
+  <div class="screen" id="screen-guest-login">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </div>
+      <span style="font-size:13px;font-weight:700;color:var(--text);">Guest Access</span>
+      <div class="mini-logo">DI</div>
+    </div>
+    <div class="scroll-content">
+      <div class="form-area">
+        <span class="badge badge-gold">⭐ Guest Access</span>
+        <div class="form-title">Guest Login</div>
+        <div class="form-subtitle">Access DIFM app with your Gmail. We'll send a one-time verification code to your inbox.</div>
+        <div class="info-card">ℹ️ A 6-digit OTP will be sent to your Gmail inbox. No account creation required.</div>
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <div class="input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input class="form-input" id="guest-name" type="text" placeholder="Enter your full name" oninput="clearErr('guest-name-err')">
+          </div>
+          <div class="error-msg" id="guest-name-err"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gmail Address</label>
+          <div class="input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input class="form-input" id="guest-email" type="email" placeholder="yourname@gmail.com" oninput="clearErr('guest-email-err')">
+          </div>
+          <div class="input-hint">We only accept @gmail.com addresses</div>
+          <div class="error-msg" id="guest-email-err"></div>
+        </div>
+        <button class="btn-primary" id="guest-send-btn" onclick="guestSendOTP()">
+          <span id="guest-send-text">Send Verification Code</span>
+          <div class="spinner" id="guest-spinner"></div>
+        </button>
+        <div class="terms-text">By continuing you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></div>
+        <div class="divider">or</div>
+        <button class="link-btn" onclick="showScreen('emp-register')">I'm an Employee — Login / Register</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: GUEST OTP -->
+  <div class="screen" id="screen-guest-otp">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </div>
+      <span style="font-size:13px;font-weight:700;color:var(--text);">Verify Email</span>
+      <div class="mini-logo">DI</div>
+    </div>
+    <div class="scroll-content">
+      <div class="form-area" style="text-align:center;">
+        <div class="otp-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div class="otp-badge" style="background:var(--success);">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div class="form-title">Check Your Gmail</div>
+        <p style="font-size:13px;color:var(--text-sec);margin-bottom:6px;">Hi <strong id="guest-otp-name"></strong>! We sent a 6-digit verification code to</p>
+        <p style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:20px;" id="guest-otp-email-display"></p>
+        <div class="otp-boxes" id="guest-otp-boxes">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'guest-otp',0)" onkeydown="otpKeydown(event,this,'guest-otp',0)" onclick="this.select()">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'guest-otp',1)" onkeydown="otpKeydown(event,this,'guest-otp',1)" onclick="this.select()">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'guest-otp',2)" onkeydown="otpKeydown(event,this,'guest-otp',2)" onclick="this.select()">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'guest-otp',3)" onkeydown="otpKeydown(event,this,'guest-otp',3)" onclick="this.select()">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'guest-otp',4)" onkeydown="otpKeydown(event,this,'guest-otp',4)" onclick="this.select()">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'guest-otp',5)" onkeydown="otpKeydown(event,this,'guest-otp',5)" onclick="this.select()">
+        </div>
+        <div class="demo-hint">
+          <span>🎯 Demo: click 'Use Code' to auto-fill</span>
+          <button class="demo-fill-btn" onclick="autoFillOTP('guest-otp')">Use Code 1-2-3-4-5-6</button>
+        </div>
+        <button class="btn-primary" id="guest-verify-btn" disabled onclick="guestVerify()">
+          <span id="guest-verify-text">Verify & Continue</span>
+          <div class="spinner" id="guest-verify-spinner"></div>
+        </button>
+        <div class="countdown" id="guest-countdown">Resend in <span id="guest-timer">60</span>s</div>
+        <div class="tips-card" style="text-align:left;">
+          <div style="font-weight:700;margin-bottom:4px;">💡 Tips</div>
+          <div>• Check your spam / promotions folder</div>
+          <div>• Make sure you entered the correct Gmail</div>
+          <div>• Code expires in 10 minutes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: EMPLOYEE REGISTER -->
+  <div class="screen" id="screen-emp-register">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </div>
+      <span style="font-size:13px;font-weight:700;color:var(--text);">Employee Register</span>
+      <div class="mini-logo">DI</div>
+    </div>
+    <div class="scroll-content">
+      <div class="form-area">
+        <span class="badge badge-blue">💼 Internal Employee</span>
+        <div class="form-title">Employee Registration</div>
+        <div class="form-subtitle">Create your DIFM account to access exclusive employee features and services.</div>
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <div class="input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input class="form-input" id="emp-name" type="text" placeholder="Enter your full name" oninput="clearErr('emp-name-err')">
+          </div>
+          <div class="error-msg" id="emp-name-err"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Employee ID</label>
+          <div class="input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/></svg>
+            <input class="form-input" id="emp-id" type="text" placeholder="e.g. DI-2024-001" oninput="clearErr('emp-id-err')">
+          </div>
+          <div class="input-hint">Provided by HR department</div>
+          <div class="error-msg" id="emp-id-err"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mobile Number</label>
+          <div class="input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg>
+            <input class="form-input" id="emp-phone" type="tel" placeholder="+974 XXXX XXXX" oninput="clearErr('emp-phone-err')">
+          </div>
+          <div class="input-hint">Qatar +974 format</div>
+          <div class="error-msg" id="emp-phone-err"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            <input class="form-input" id="emp-pw" type="password" placeholder="Create a strong password" oninput="updatePwStrength();clearErr('emp-pw-err')">
+          </div>
+          <div class="pw-strength" id="pw-strength-wrap">
+            <div class="pw-bars">
+              <div class="pw-bar" id="pw-b1"></div>
+              <div class="pw-bar" id="pw-b2"></div>
+              <div class="pw-bar" id="pw-b3"></div>
+              <div class="pw-bar" id="pw-b4"></div>
+            </div>
+            <div class="pw-label" id="pw-label">Enter a password</div>
+          </div>
+          <div class="error-msg" id="emp-pw-err"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <div class="input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            <input class="form-input" id="emp-pw2" type="password" placeholder="Confirm your password" oninput="clearErr('emp-pw2-err')">
+          </div>
+          <div class="error-msg" id="emp-pw2-err"></div>
+        </div>
+        <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:10px;padding:10px 12px;font-size:11px;color:#065f46;margin-bottom:16px;">
+          🔒 Your data is encrypted with AES-256. We never share your information with third parties.
+        </div>
+        <button class="btn-primary" id="emp-reg-btn" onclick="empRegister()">
+          <span id="emp-reg-text">Register & Send SMS Code</span>
+          <div class="spinner" id="emp-reg-spinner"></div>
+        </button>
+        <div class="divider">or</div>
+        <button class="link-btn" onclick="showScreen('guest-login')">Continue as Guest instead</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: EMPLOYEE OTP -->
+  <div class="screen" id="screen-emp-otp">
+    <div class="screen-header">
+      <div class="back-btn" onclick="goBack()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </div>
+      <span style="font-size:13px;font-weight:700;color:var(--text);">Verify Mobile</span>
+      <div class="mini-logo">DI</div>
+    </div>
+    <div class="scroll-content">
+      <div class="form-area" style="text-align:center;">
+        <div class="otp-icon-wrap" style="background:rgba(201,168,76,0.12);">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg>
+          <div class="otp-badge" style="background:var(--accent);">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div class="form-title">Verify Your Mobile</div>
+        <p style="font-size:13px;color:var(--text-sec);margin-bottom:6px;">Welcome, <strong id="emp-otp-name"></strong>! A 6-digit SMS code was sent to</p>
+        <p style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:8px;">+974****3456</p>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(27,58,107,0.1);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;color:var(--primary);margin-bottom:20px;" id="emp-id-chip"></div>
+        <div class="otp-boxes" id="emp-otp-boxes">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'emp-otp',0)" onkeydown="otpKeydown(event,this,'emp-otp',0)" onclick="this.select()">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'emp-otp',1)" onkeydown="otpKeydown(event,this,'emp-otp',1)" onclick="this.select()">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'emp-otp',2)" onkeydown="otpKeydown(event,this,'emp-otp',2)" onclick="this.select()">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'emp-otp',3)" onkeydown="otpKeydown(event,this,'emp-otp',3)" onclick="this.select()">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'emp-otp',4)" onkeydown="otpKeydown(event,this,'emp-otp',4)" onclick="this.select()">
+          <input class="otp-box" maxlength="1" type="tel" pattern="[0-9]" oninput="otpInput(this,'emp-otp',5)" onkeydown="otpKeydown(event,this,'emp-otp',5)" onclick="this.select()">
+        </div>
+        <div class="demo-hint">
+          <span>🎯 Demo: click 'Use Code' to auto-fill</span>
+          <button class="demo-fill-btn" onclick="autoFillOTP('emp-otp')">Use Code 1-2-3-4-5-6</button>
+        </div>
+        <button class="btn-primary" id="emp-verify-btn" disabled onclick="empVerify()">
+          <span id="emp-verify-text">Verify & Complete Registration</span>
+          <div class="spinner" id="emp-verify-spinner"></div>
+        </button>
+        <div class="countdown" id="emp-countdown">Resend in <span id="emp-timer">60</span>s</div>
+        <div class="steps-card" style="text-align:left;">
+          <div class="step-row">
+            <div class="step-dot done">✓</div>
+            <div class="step-text">Account details entered</div>
+          </div>
+          <div class="step-row">
+            <div class="step-dot active">●</div>
+            <div class="step-text active-step">Mobile verification (active)</div>
+          </div>
+          <div class="step-row">
+            <div class="step-dot pending">○</div>
+            <div class="step-text">Account activated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 6-9: MAIN (tabs) -->
+  <div class="screen" id="screen-main">
+    <!-- Home Header (shown for home tab) -->
+    <div class="main-header" id="main-header-home">
+      <div class="main-header-top">
+        <div>
+          <div class="greeting-sub" id="greeting-time">Good Morning,</div>
+          <div class="greeting-name" id="greeting-name">User</div>
+        </div>
+        <div class="header-right">
+          <button class="bell-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            <span class="bell-badge" id="bell-badge" style="display:none;">5</span>
+          </button>
+          <button class="avatar-btn" id="main-avatar" onclick="switchTab('profile')">M</button>
+        </div>
+      </div>
+    </div>
+    <!-- Events Header -->
+    <div class="main-header" id="main-header-events" style="display:none;padding:44px 16px 16px;">
+      <div class="events-title">News & Events</div>
+      <div class="events-subtitle">Stay updated with DIFM</div>
+    </div>
+    <!-- Projects Header -->
+    <div class="main-header" id="main-header-projects" style="display:none;padding:44px 16px 16px;">
+      <div class="events-title">Our Projects</div>
+      <div class="events-subtitle">100+ active engagements</div>
+    </div>
+    <!-- Profile Header -->
+    <div class="profile-header" id="main-header-profile" style="display:none;padding-top:44px;">
+      <div class="profile-avatar" id="profile-avatar-letter">M</div>
+      <div class="profile-name" id="profile-name-display">Mohammad Al-Rashidi</div>
+      <div class="profile-badge" id="profile-badge-display">💼 Employee · DI-2024-001</div>
+      <div class="profile-contact">mohammad@darwishinterserve.com</div>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="tab-content" id="tab-home" style="display:block;">
+      <!-- Hero -->
+      <div class="hero-card">
+        <div class="hero-deco"></div>
+        <div class="hero-eyebrow">WELCOME TO DIFM</div>
+        <div class="hero-title">Redefining the Future for People and Places</div>
+        <div class="hero-subtitle">Qatar's premier integrated facility management solution</div>
+      </div>
+      <!-- About -->
+      <div class="section-header">
+        <div class="section-title">About Us</div>
+      </div>
+      <div class="about-text">
+        Darwish Interserve Facility Management (DIFM) is a joint venture between Darwish Holdings and Interserve, delivering world-class integrated facility management services across Qatar. With 14+ years of excellence, we serve government, aviation, education, and commercial sectors.
+      </div>
+      <!-- What We Do -->
+      <div class="section-header">
+        <div class="section-title">What We Do</div>
+      </div>
+      <div class="services-row">
+        <div class="service-card">
+          <div class="service-icon" style="background:rgba(27,58,107,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="service-name">Hard Services</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" style="background:rgba(201,168,76,0.15);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="service-name">Soft Services</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon" style="background:rgba(16,185,129,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+          </div>
+          <div class="service-name">Managed Services</div>
+        </div>
+      </div>
+      <!-- Stats -->
+      <div class="section-header"><div class="section-title">By The Numbers</div></div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num">3,500+</div><div class="stat-label">Skilled Employees</div></div>
+        <div class="stat-card"><div class="stat-num">100+</div><div class="stat-label">Active Projects</div></div>
+        <div class="stat-card"><div class="stat-num">14+</div><div class="stat-label">Years of Excellence</div></div>
+        <div class="stat-card"><div class="stat-num" style="color:var(--accent);">🇶🇦</div><div class="stat-label">Based in Qatar</div></div>
+      </div>
+      <!-- Clients -->
+      <div class="section-header"><div class="section-title">Our Clients</div></div>
+      <div class="clients-row">
+        <div class="client-logo">HIA</div>
+        <div class="client-logo">QU</div>
+        <div class="client-logo">KAT</div>
+        <div class="client-logo">AZ</div>
+        <div class="client-logo" style="font-size:9px;">+20<br>more</div>
+      </div>
+      <!-- CTA -->
+      <div class="cta-row">
+        <button class="cta-btn cta-primary" onclick="switchTab('projects')">Explore Our Projects</button>
+        <button class="cta-btn cta-outline" style="border:1.5px solid var(--primary);">Contact Us Today</button>
+      </div>
+    </div>
+
+    <!-- EVENTS TAB -->
+    <div class="tab-content" id="tab-events" style="display:none;">
+      <div class="featured-card">
+        <div class="featured-tag">FEATURED</div>
+        <div class="featured-title">Industry Engagement & Participation</div>
+        <div class="featured-date">📅 March 2026</div>
+        <div class="featured-desc">Active participation in Qatar's leading facility management industry forums, showcasing DIFM's innovative approaches to sustainable facility management.</div>
+        <button class="read-more">Read more →</button>
+      </div>
+      <div class="section-header"><div class="section-title">More Updates</div></div>
+      <div class="updates-list">
+        <div class="update-card" onclick="toggleUpdate(this)">
+          <div class="update-type type-achievement">🏆 Achievement</div>
+          <div class="update-title">Project Milestone Achievement</div>
+          <div class="update-date">📅 January 2026</div>
+          <div class="update-desc">DIFM reached a significant milestone with the successful completion of Phase 1 of the Education Sector FM contract, managing 215 sites across Qatar with zero safety incidents.</div>
+        </div>
+        <div class="update-card" onclick="toggleUpdate(this)">
+          <div class="update-type type-csr">💜 CSR</div>
+          <div class="update-title">Corporate Social Responsibility Initiative</div>
+          <div class="update-date">📅 December 2025</div>
+          <div class="update-desc">DIFM launched its annual CSR program, including community clean-up drives, employee wellness initiatives, and sponsorship of local youth development programs in Qatar.</div>
+        </div>
+      </div>
+      <div class="subscribe-card">
+        <div style="font-size:14px;font-weight:800;margin-bottom:6px;">📧 Stay Informed</div>
+        <p>Subscribe to our newsletter for the latest updates</p>
+        <div class="subscribe-input-row">
+          <input class="subscribe-input" type="email" placeholder="your@email.com">
+          <button class="subscribe-btn">Subscribe</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECTS TAB -->
+    <div class="tab-content" id="tab-projects" style="display:none;">
+      <div class="stats-strip">
+        <div class="stat-pill"><div class="stat-pill-num">100+</div><div class="stat-pill-label">Active</div></div>
+        <div class="stat-pill"><div class="stat-pill-num">235</div><div class="stat-pill-label">Sites</div></div>
+        <div class="stat-pill"><div class="stat-pill-num">3.5K+</div><div class="stat-pill-label">Workforce</div></div>
+      </div>
+      <div style="height:8px;"></div>
+      <div class="project-card" onclick="showProjectDetail(0)">
+        <div class="project-banner" style="background:linear-gradient(135deg,#065f46,#10B981);">
+          <div>
+            <div class="project-num">PROJECT 01</div>
+            <div class="project-banner-title">Education Sector</div>
+          </div>
+          <div style="margin-left:auto;">
+            <div class="project-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag" style="background:rgba(16,185,129,0.1);color:#065f46;">🏛 Government Entity</div>
+          <div class="project-sites">📍 215 sites across Qatar</div>
+          <button class="view-details-btn">View Details →</button>
+        </div>
+      </div>
+      <div class="project-card" onclick="showProjectDetail(1)">
+        <div class="project-banner" style="background:linear-gradient(135deg,#1e3a5f,#2A5298);">
+          <div>
+            <div class="project-num">PROJECT 02</div>
+            <div class="project-banner-title">Aviation Facility Maint.</div>
+          </div>
+          <div style="margin-left:auto;">
+            <div class="project-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag" style="background:rgba(42,82,152,0.1);color:#1B3A6B;">✈️ Aviation Sector</div>
+          <div class="project-sites">📍 12 sites — Hamad International Airport</div>
+          <button class="view-details-btn">View Details →</button>
+        </div>
+      </div>
+      <div class="project-card" onclick="showProjectDetail(2)">
+        <div class="project-banner" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);">
+          <div>
+            <div class="project-num">PROJECT 03</div>
+            <div class="project-banner-title">Commercial Property Mgmt.</div>
+          </div>
+          <div style="margin-left:auto;">
+            <div class="project-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tag" style="background:rgba(124,58,237,0.1);color:#4c1d95;">🏢 Corporate Client</div>
+          <div class="project-sites">📍 8 commercial properties</div>
+          <button class="view-details-btn">View Details →</button>
+        </div>
+      </div>
+      <div style="height:16px;"></div>
+    </div>
+
+    <!-- PROFILE TAB -->
+    <div class="tab-content" id="tab-profile" style="display:none;">
+      <div class="profile-stats">
+        <div class="profile-stat"><div class="profile-stat-num">248</div><div class="profile-stat-label">Tasks Done</div></div>
+        <div class="profile-stat"><div class="profile-stat-num">3</div><div class="profile-stat-label">Awards</div></div>
+        <div class="profile-stat"><div class="profile-stat-num">1.2y</div><div class="profile-stat-label">Tenure</div></div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-label">Account</div>
+        <div class="settings-group">
+          <div class="settings-row">
+            <div class="settings-row-icon" style="background:rgba(27,58,107,0.1);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <span class="settings-row-label">Personal Information</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="settings-row">
+            <div class="settings-row-icon" style="background:rgba(239,68,68,0.1);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
+            <span class="settings-row-label">Security & Password</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="settings-row">
+            <div class="settings-row-icon" style="background:rgba(201,168,76,0.15);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/></svg>
+            </div>
+            <span class="settings-row-label">Employee Details</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="settings-section" style="margin-top:14px;">
+        <div class="settings-label">Preferences</div>
+        <div class="settings-group">
+          <div class="settings-row">
+            <div class="settings-row-icon" style="background:rgba(16,185,129,0.1);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            </div>
+            <span class="settings-row-label">Push Notifications</span>
+            <div class="toggle" onclick="this.classList.toggle('off')"></div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-row-icon" style="background:rgba(42,82,152,0.1);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2A5298" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <span class="settings-row-label">Email Updates</span>
+            <div class="toggle" onclick="this.classList.toggle('off')"></div>
+          </div>
+          <div class="settings-row">
+            <div class="settings-row-icon" style="background:rgba(107,114,128,0.1);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            </div>
+            <span class="settings-row-label">Language</span>
+            <span class="settings-row-val">English</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="showLogout()">🚪 Log Out</button>
+      <div class="version-text">Darwish Interserve v1.0.0</div>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+      <button class="tab-item active" id="tab-btn-home" onclick="switchTab('home')">
+        <div class="tab-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        Home
+      </button>
+      <button class="tab-item" id="tab-btn-events" onclick="switchTab('events')">
+        <div class="tab-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        Events
+      </button>
+      <button class="tab-item" id="tab-btn-projects" onclick="switchTab('projects')">
+        <div class="tab-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        Projects
+      </button>
+      <button class="tab-item" id="tab-btn-profile" onclick="switchTab('profile')">
+        <div class="tab-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        Profile
+      </button>
+    </div>
+
+    <!-- Logout Dialog -->
+    <div class="dialog-overlay" id="logout-dialog">
+      <div class="dialog-box">
+        <div class="dialog-title">Log Out?</div>
+        <div class="dialog-msg">Are you sure you want to log out of your account?</div>
+        <div class="dialog-btns">
+          <button class="dialog-btn dialog-cancel" onclick="hideLogout()">Cancel</button>
+          <button class="dialog-btn dialog-confirm" onclick="doLogout()">Log Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 10: PROJECT DETAIL -->
+  <div class="screen" id="screen-project-detail">
+    <div class="detail-header">
+      <div class="back-btn" onclick="goBack()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </div>
+      <span id="detail-header-name" style="font-size:13px;font-weight:700;color:var(--text);">Project Detail</span>
+      <div class="mini-logo">DI</div>
+    </div>
+    <div style="overflow-y:auto;height:calc(100% - 85px);">
+      <div class="detail-banner" id="detail-banner">
+        <div class="detail-project-icon" id="detail-icon"></div>
+        <div class="detail-project-name" id="detail-name"></div>
+      </div>
+      <div class="detail-content">
+        <div class="detail-section-title">About This Project</div>
+        <div class="detail-desc" id="detail-desc"></div>
+        <div class="detail-stats-row">
+          <div class="detail-stat"><div class="detail-stat-val" id="detail-sites"></div><div class="detail-stat-label">Sites</div></div>
+          <div class="detail-stat"><div class="detail-stat-val" id="detail-sector"></div><div class="detail-stat-label">Sector</div></div>
+        </div>
+        <div class="detail-section-title">Services Provided</div>
+        <div class="services-list" id="detail-services"></div>
+        <button class="back-to-proj" onclick="goBack()">← Back to Projects</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+var screenHistory = [];
+var currentScreen = 'welcome';
+var currentUser = {name:'', type:'guest', empId:''};
+var guestCounterInterval = null;
+var empCounterInterval = null;
+var currentTab = 'home';
+
+var projects = [
+  {
+    name:'Education Sector FM',
+    color:'linear-gradient(135deg,#065f46,#10B981)',
+    icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
+    client:'Government Entity (MOE)',
+    desc:'DIFM manages over 215 educational facilities across Qatar for the Ministry of Education, encompassing schools, universities, and training centers. Our comprehensive FM services ensure safe, clean, and well-maintained learning environments for thousands of students and staff daily.',
+    sites:'215',
+    sector:'Education',
+    services:['Mechanical & Electrical Maintenance','Cleaning & Janitorial Services','Pest Control & Hygiene','Landscaping & Grounds Maintenance','Security & Access Control','Catering & Cafeteria Management']
+  },
+  {
+    name:'Aviation Facility Maintenance',
+    color:'linear-gradient(135deg,#1e3a5f,#2A5298)',
+    icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>',
+    client:'Hamad International Airport',
+    desc:'DIFM provides mission-critical facility management services at Hamad International Airport, one of the world\'s busiest aviation hubs. Our 24/7 operations ensure the highest standards of cleanliness, maintenance, and passenger experience across terminals and ancillary facilities.',
+    sites:'12',
+    sector:'Aviation',
+    services:['Terminal Cleaning & Sanitization','HVAC & MEP Maintenance','Baggage Handling Area Maintenance','Airside Cleaning Operations','Specialist Waste Management','Passenger Facility Management']
+  },
+  {
+    name:'Commercial Property Management',
+    color:'linear-gradient(135deg,#4c1d95,#7c3aed)',
+    icon:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+    client:'Corporate Clients',
+    desc:'DIFM delivers integrated property management services for commercial real estate across Doha, including office towers, retail centers, and mixed-use developments. Our approach maximizes asset value while creating exceptional experiences for occupants and visitors.',
+    sites:'8',
+    sector:'Commercial',
+    services:['Building Management Systems','Preventive & Corrective Maintenance','Reception & Concierge Services','Cleaning & Presentation','Car Park Management','Energy Management & Sustainability']
+  }
+];
+
+// ===== NAVIGATION =====
+function showScreen(id) {
+  var screens = document.querySelectorAll('.screen');
+  var current = document.getElementById('screen-' + currentScreen);
+  var next = document.getElementById('screen-' + id);
+  if (!next || currentScreen === id) return;
+  screenHistory.push(currentScreen);
+  current.classList.add('exit-left');
+  current.classList.remove('active');
+  next.style.transform = 'translateX(100%)';
+  next.classList.remove('exit-left');
+  next.classList.remove('active');
+  setTimeout(function(){
+    next.classList.add('active');
+  }, 20);
+  setTimeout(function(){
+    current.classList.remove('exit-left');
+    current.style.transform = '';
+  }, 320);
+  currentScreen = id;
+  updateHelperBar(id);
+}
+
+function goBack() {
+  if (screenHistory.length === 0) return;
+  var prev = screenHistory.pop();
+  var current = document.getElementById('screen-' + currentScreen);
+  var prevEl = document.getElementById('screen-' + prev);
+  if (!prevEl) return;
+  current.classList.remove('active');
+  current.style.transform = 'translateX(100%)';
+  prevEl.style.transform = 'translateX(-100%)';
+  prevEl.classList.remove('exit-left');
+  setTimeout(function(){
+    prevEl.classList.add('active');
+  }, 20);
+  setTimeout(function(){
+    current.style.transform = '';
+    current.classList.remove('exit-left');
+  }, 320);
+  currentScreen = prev;
+  updateHelperBar(prev);
+}
+
+var screenNames = {
+  'welcome':'Welcome',
+  'guest-login':'Guest Login',
+  'guest-otp':'Email Verification',
+  'emp-register':'Employee Register',
+  'emp-otp':'Mobile Verification',
+  'main':'Main App',
+  'project-detail':'Project Detail'
+};
+
+function updateHelperBar(id) {
+  document.getElementById('screen-name').textContent = screenNames[id] || id;
+}
+
+function quickDemo() {
+  currentUser = {name:'Demo User', type:'guest', empId:''};
+  var allScreens = document.querySelectorAll('.screen');
+  allScreens.forEach(function(s){
+    s.classList.remove('active','exit-left');
+    s.style.transform = 'translateX(100%)';
+  });
+  screenHistory = [];
+  setupMainScreen();
+  var mainEl = document.getElementById('screen-main');
+  mainEl.style.transform = 'translateX(0)';
+  mainEl.classList.add('active');
+  currentScreen = 'main';
+  switchTab('home');
+  updateHelperBar('main');
+}
+
+// ===== FORM VALIDATION =====
+function clearErr(id) {
+  var el = document.getElementById(id);
+  if (el) { el.textContent = ''; el.classList.remove('show'); }
+}
+
+function showErr(id, msg) {
+  var el = document.getElementById(id);
+  if (el) { el.textContent = msg; el.classList.add('show'); }
+  var inputId = id.replace('-err','');
+  var inp = document.getElementById(inputId);
+  if (inp) inp.classList.add('error');
+}
+
+function setLoading(btnId, spinnerId, textId, loading) {
+  var btn = document.getElementById(btnId);
+  var sp = document.getElementById(spinnerId);
+  var tx = document.getElementById(textId);
+  if (loading) {
+    btn.disabled = true;
+    sp.style.display = 'block';
+    if (tx) tx.style.opacity = '0.5';
+  } else {
+    btn.disabled = false;
+    sp.style.display = 'none';
+    if (tx) tx.style.opacity = '1';
+  }
+}
+
+function guestSendOTP() {
+  var name = document.getElementById('guest-name').value.trim();
+  var email = document.getElementById('guest-email').value.trim();
+  var valid = true;
+  document.querySelectorAll('#screen-guest-login .form-input').forEach(function(i){i.classList.remove('error');});
+  if (!name || name.length < 3) { showErr('guest-name-err','Full name must be at least 3 characters'); valid = false; }
+  if (!email) { showErr('guest-email-err','Gmail address is required'); valid = false; }
+  else if (!email.endsWith('@gmail.com')) { showErr('guest-email-err','Only @gmail.com addresses are accepted'); valid = false; }
+  if (!valid) return;
+  setLoading('guest-send-btn','guest-spinner','guest-send-text',true);
+  setTimeout(function(){
+    setLoading('guest-send-btn','guest-spinner','guest-send-text',false);
+    currentUser.name = name;
+    currentUser.email = email;
+    currentUser.type = 'guest';
+    document.getElementById('guest-otp-name').textContent = name.split(' ')[0];
+    var masked = email.substring(0,2) + '****@gmail.com';
+    document.getElementById('guest-otp-email-display').textContent = masked;
+    clearOTPBoxes('guest-otp');
+    showScreen('guest-otp');
+    startCountdown('guest-timer','guest-countdown','guest');
+  }, 1200);
+}
+
+function empRegister() {
+  var name = document.getElementById('emp-name').value.trim();
+  var empId = document.getElementById('emp-id').value.trim();
+  var phone = document.getElementById('emp-phone').value.trim();
+  var pw = document.getElementById('emp-pw').value;
+  var pw2 = document.getElementById('emp-pw2').value;
+  var valid = true;
+  document.querySelectorAll('#screen-emp-register .form-input').forEach(function(i){i.classList.remove('error');});
+  if (!name || name.length < 3) { showErr('emp-name-err','Full name required (min 3 chars)'); valid = false; }
+  if (!empId) { showErr('emp-id-err','Employee ID is required'); valid = false; }
+  if (!phone || phone.length < 8) { showErr('emp-phone-err','Valid mobile number required'); valid = false; }
+  if (!pw || pw.length < 6) { showErr('emp-pw-err','Password must be at least 6 characters'); valid = false; }
+  if (pw !== pw2) { showErr('emp-pw2-err','Passwords do not match'); valid = false; }
+  if (!valid) return;
+  setLoading('emp-reg-btn','emp-reg-spinner','emp-reg-text',true);
+  setTimeout(function(){
+    setLoading('emp-reg-btn','emp-reg-spinner','emp-reg-text',false);
+    currentUser.name = name;
+    currentUser.empId = empId;
+    currentUser.type = 'employee';
+    document.getElementById('emp-otp-name').textContent = name.split(' ')[0];
+    document.getElementById('emp-id-chip').textContent = 'Employee ID: ' + empId;
+    clearOTPBoxes('emp-otp');
+    showScreen('emp-otp');
+    startCountdown('emp-timer','emp-countdown','emp');
+  }, 1200);
+}
+
+function guestVerify() {
+  setLoading('guest-verify-btn','guest-verify-spinner','guest-verify-text',true);
+  setTimeout(function(){
+    setLoading('guest-verify-btn','guest-verify-spinner','guest-verify-text',false);
+    setupMainScreen();
+    showScreen('main');
+    switchTab('home');
+  }, 1000);
+}
+
+function empVerify() {
+  setLoading('emp-verify-btn','emp-verify-spinner','emp-verify-text',true);
+  setTimeout(function(){
+    setLoading('emp-verify-btn','emp-verify-spinner','emp-verify-text',false);
+    setupMainScreen();
+    showScreen('main');
+    switchTab('home');
+  }, 1000);
+}
+
+function setupMainScreen() {
+  var firstName = (currentUser.name || 'User').split(' ')[0];
+  var initial = firstName.charAt(0).toUpperCase();
+  var hour = new Date().getHours();
+  var greeting = hour < 12 ? 'Good Morning,' : (hour < 17 ? 'Good Afternoon,' : 'Good Evening,');
+  document.getElementById('greeting-time').textContent = greeting;
+  document.getElementById('greeting-name').textContent = firstName;
+  document.getElementById('main-avatar').textContent = initial;
+  document.getElementById('profile-avatar-letter').textContent = initial;
+  document.getElementById('profile-name-display').textContent = currentUser.name || 'Demo User';
+  if (currentUser.type === 'employee') {
+    document.getElementById('profile-badge-display').textContent = '💼 Employee · ' + (currentUser.empId || 'DI-2024-001');
+    document.getElementById('bell-badge').style.display = 'flex';
+  } else {
+    document.getElementById('profile-badge-display').textContent = '👤 Guest User';
+    document.getElementById('bell-badge').style.display = 'none';
+  }
+}
+
+// ===== OTP LOGIC =====
+function clearOTPBoxes(prefix) {
+  var boxes = document.querySelectorAll('#' + prefix + '-boxes .otp-box');
+  boxes.forEach(function(b){ b.value = ''; b.classList.remove('filled'); });
+  updateVerifyBtn(prefix);
+}
+
+function otpInput(el, prefix, idx) {
+  el.value = el.value.replace(/[^0-9]/g,'');
+  if (el.value) {
+    el.classList.add('filled');
+    var boxes = document.querySelectorAll('#' + prefix + '-boxes .otp-box');
+    if (idx < 5) boxes[idx+1].focus();
+  } else {
+    el.classList.remove('filled');
+  }
+  updateVerifyBtn(prefix);
+}
+
+function otpKeydown(e, el, prefix, idx) {
+  if (e.key === 'Backspace' && !el.value) {
+    var boxes = document.querySelectorAll('#' + prefix + '-boxes .otp-box');
+    if (idx > 0) { boxes[idx-1].focus(); boxes[idx-1].value = ''; boxes[idx-1].classList.remove('filled'); }
+    updateVerifyBtn(prefix);
+  }
+}
+
+function updateVerifyBtn(prefix) {
+  var boxes = document.querySelectorAll('#' + prefix + '-boxes .otp-box');
+  var filled = 0;
+  boxes.forEach(function(b){ if(b.value) filled++; });
+  var btn = document.getElementById(prefix.replace('-otp','') + '-otp' === prefix ?
+    (prefix === 'guest-otp' ? 'guest-verify-btn' : 'emp-verify-btn') :
+    (prefix.includes('guest') ? 'guest-verify-btn' : 'emp-verify-btn'));
+  // simpler approach:
+  if (prefix === 'guest-otp') document.getElementById('guest-verify-btn').disabled = (filled < 6);
+  else document.getElementById('emp-verify-btn').disabled = (filled < 6);
+}
+
+function autoFillOTP(prefix) {
+  var boxes = document.querySelectorAll('#' + prefix + '-boxes .otp-box');
+  var digits = ['1','2','3','4','5','6'];
+  boxes.forEach(function(b, i){ b.value = digits[i]; b.classList.add('filled'); });
+  updateVerifyBtn(prefix);
+}
+
+// ===== COUNTDOWN =====
+function startCountdown(timerId, wrapperId, prefix) {
+  if (prefix === 'guest' && guestCounterInterval) clearInterval(guestCounterInterval);
+  if (prefix === 'emp' && empCounterInterval) clearInterval(empCounterInterval);
+  var secs = 60;
+  var timerEl = document.getElementById(timerId);
+  var wrapEl = document.getElementById(wrapperId);
+  if (timerEl) timerEl.textContent = secs;
+  if (wrapEl) wrapEl.innerHTML = 'Resend in <span id="' + timerId + '">' + secs + '</span>s';
+  var interval = setInterval(function(){
+    secs--;
+    var el = document.getElementById(timerId);
+    if (el) el.textContent = secs;
+    if (secs <= 0) {
+      clearInterval(interval);
+      var wrap = document.getElementById(wrapperId);
+      if (wrap) wrap.innerHTML = '<button class="resend-link" onclick="startCountdown(\'' + timerId + '\',\'' + wrapperId + '\',\'' + prefix + '\')">Resend Code</button>';
+    }
+  }, 1000);
+  if (prefix === 'guest') guestCounterInterval = interval;
+  else empCounterInterval = interval;
+}
+
+// ===== PASSWORD STRENGTH =====
+function updatePwStrength() {
+  var pw = document.getElementById('emp-pw').value;
+  var strength = 0;
+  if (pw.length >= 8) strength++;
+  if (/[A-Z]/.test(pw)) strength++;
+  if (/[0-9]/.test(pw)) strength++;
+  if (/[^A-Za-z0-9]/.test(pw)) strength++;
+  var bars = ['pw-b1','pw-b2','pw-b3','pw-b4'];
+  var classes = ['w','f','g','s'];
+  var labels = ['','Weak','Fair','Good','Strong'];
+  bars.forEach(function(id, i){
+    var b = document.getElementById(id);
+    b.className = 'pw-bar';
+    if (i < strength) b.classList.add(classes[strength-1]);
+  });
+  document.getElementById('pw-label').textContent = pw.length === 0 ? 'Enter a password' : labels[strength] || 'Weak';
+}
+
+// ===== TABS =====
+function switchTab(tab) {
+  var tabs = ['home','events','projects','profile'];
+  tabs.forEach(function(t){
+    var content = document.getElementById('tab-' + t);
+    var btn = document.getElementById('tab-btn-' + t);
+    var header = document.getElementById('main-header-' + t);
+    if (content) content.style.display = (t === tab) ? 'block' : 'none';
+    if (btn) btn.classList.toggle('active', t === tab);
+    if (header) header.style.display = (t === tab) ? '' : 'none';
+  });
+  // Fix profile tab content offset
+  var profileContent = document.getElementById('tab-profile');
+  if (tab === 'profile') {
+    profileContent.style.marginTop = '0';
+  }
+  currentTab = tab;
+  // Fix content height for profile header which is taller
+  var tabContents = document.querySelectorAll('.tab-content');
+  var homeHeader = document.getElementById('main-header-home');
+  tabContents.forEach(function(tc){
+    if (tab === 'profile') {
+      tc.style.height = 'calc(100% - 224px)';
+    } else {
+      tc.style.height = 'calc(100% - 142px)';
+    }
+  });
+}
+
+// ===== PROJECTS =====
+function showProjectDetail(idx) {
+  var p = projects[idx];
+  document.getElementById('detail-header-name').textContent = p.name;
+  document.getElementById('detail-banner').style.background = p.color;
+  document.getElementById('detail-icon').innerHTML = p.icon;
+  document.getElementById('detail-name').textContent = p.name;
+  document.getElementById('detail-desc').textContent = p.desc;
+  document.getElementById('detail-sites').textContent = p.sites;
+  document.getElementById('detail-sector').textContent = p.sector;
+  var servicesList = document.getElementById('detail-services');
+  servicesList.innerHTML = '';
+  p.services.forEach(function(s){
+    servicesList.innerHTML += '<div class="service-item"><div class="service-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>' + s + '</div>';
+  });
+  showScreen('project-detail');
+}
+
+function toggleUpdate(card) {
+  var desc = card.querySelector('.update-desc');
+  if (desc) desc.classList.toggle('expanded');
+}
+
+// ===== LOGOUT =====
+function showLogout() {
+  document.getElementById('logout-dialog').classList.add('show');
+}
+function hideLogout() {
+  document.getElementById('logout-dialog').classList.remove('show');
+}
+function doLogout() {
+  hideLogout();
+  currentUser = {name:'',type:'guest',empId:''};
+  screenHistory = [];
+  var allScreens = document.querySelectorAll('.screen');
+  allScreens.forEach(function(s){
+    s.classList.remove('active','exit-left');
+    s.style.transform = 'translateX(100%)';
+  });
+  var welcome = document.getElementById('screen-welcome');
+  welcome.classList.add('active');
+  welcome.style.transform = 'translateX(0)';
+  currentScreen = 'welcome';
+  updateHelperBar('welcome');
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function(){
+  updateHelperBar('welcome');
+});
+</script>
+</body>
 </html>
