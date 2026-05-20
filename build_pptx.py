@@ -965,7 +965,217 @@ for i,(icon,title,desc,c) in enumerate(benefits):
     add_text(sl, desc,  bx+0.15, by+1.08, 2.75, 1.1, size=10.5, color=TEXT_SEC)
 
 # ─────────────────────────────────────────────────────────────────────────────
-# SLIDE 15 — NEXT STEPS & CLOSING
+# SLIDE 15 — GUEST vs EMPLOYEE ACCESS
+# ─────────────────────────────────────────────────────────────────────────────
+sl = prs.slides.add_slide(BLANK)
+add_rect(sl, 0, 0, 13.33, 7.5, BG)
+add_rect(sl, 0, 0, 13.33, 1.45, NAVY_DARK)
+add_rect(sl, 0, 0, 0.18, 7.5, GOLD)
+
+add_text(sl, "ACCESS COMPARISON", 0.45, 0.12, 8, 0.32, size=10, bold=True, color=GOLD)
+add_text(sl, "Guest vs Employee — What Each User Sees", 0.45, 0.42, 12, 0.7,
+         size=28, bold=True, color=WHITE)
+
+# GUEST card (left)
+card_rect(sl, 0.45, 1.65, 6.2, 5.55, WHITE)
+add_rect(sl, 0.45, 1.65, 6.2, 1.05, GOLD)
+av_g = sl.shapes.add_shape(9, Inches(0.7), Inches(1.83), Inches(0.7), Inches(0.7))
+av_g.fill.solid(); av_g.fill.fore_color.rgb = WHITE; av_g.line.fill.background()
+add_text(sl, "G", 0.7, 1.88, 0.7, 0.6, size=22, bold=True, color=NAVY_DARK,
+         align=PP_ALIGN.CENTER)
+add_text(sl, "GUEST USER", 1.55, 1.78, 4.5, 0.35, size=11, bold=True, color=NAVY_DARK)
+add_text(sl, "View-Only Access", 1.55, 2.1,  4.5, 0.4, size=18, bold=True, color=WHITE)
+add_text(sl, "Authenticated via Gmail OTP  ·  No account required",
+         1.55, 2.42, 5.0, 0.28, size=10, color=WHITE)
+
+add_text(sl, "WHAT GUESTS CAN VIEW", 0.65, 2.92, 5.5, 0.3, size=9, bold=True, color=GOLD)
+
+guest_features = [
+    "Company website content — About, Vision, Mission",
+    "Services portfolio (Hard, Soft, Managed)",
+    "Public projects gallery & client showcase",
+    "Management team org chart",
+    "Department heads overview",
+    "Published news & company events",
+    "Contact information & office locations",
+    "ISO certifications & company milestones",
+]
+for i, text in enumerate(guest_features):
+    by = 3.3 + i * 0.47
+    add_text(sl, "✓", 0.7, by, 0.3, 0.35, size=14, bold=True, color=SUCCESS)
+    add_text(sl, text, 1.0, by, 5.4, 0.35, size=11, color=TEXT_SEC)
+
+# EMPLOYEE card (right)
+card_rect(sl, 6.85, 1.65, 6.1, 5.55, WHITE)
+add_rect(sl, 6.85, 1.65, 6.1, 1.05, NAVY)
+av_e = sl.shapes.add_shape(9, Inches(7.1), Inches(1.83), Inches(0.7), Inches(0.7))
+av_e.fill.solid(); av_e.fill.fore_color.rgb = GOLD; av_e.line.fill.background()
+add_text(sl, "E", 7.1, 1.88, 0.7, 0.6, size=22, bold=True, color=NAVY_DARK,
+         align=PP_ALIGN.CENTER)
+add_text(sl, "EMPLOYEE USER", 7.95, 1.78, 4.5, 0.35, size=11, bold=True, color=GOLD_LIGHT)
+add_text(sl, "Full Self-Service Portal", 7.95, 2.1,  4.5, 0.4, size=18, bold=True, color=WHITE)
+add_text(sl, "Authenticated via Employee ID + SMS OTP",
+         7.95, 2.42, 5.0, 0.28, size=10, color=RGBColor(0xCC,0xDD,0xEE))
+
+add_text(sl, "EVERYTHING GUESTS SEE  +  PERSONAL HR PORTAL", 7.05, 2.92, 5.7, 0.3,
+         size=9, bold=True, color=GOLD)
+
+emp_features = [
+    "Personal profile · Joining date · Designation",
+    "Leave balance · Apply leave · Approval status",
+    "Pay slips — current & historical downloads",
+    "Signed offer letter & employment contract",
+    "Request salary / employment certificates",
+    "Submit complaints & grievances directly to HR",
+    "Access HR forms — claims, transfers, training",
+    "Personalised notifications & work updates",
+]
+for i, text in enumerate(emp_features):
+    by = 3.3 + i * 0.47
+    add_text(sl, "★", 7.05, by, 0.35, 0.35, size=13, bold=True, color=GOLD)
+    add_text(sl, text, 7.45, by, 5.45, 0.35, size=11, color=TEXT_SEC)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SLIDE 16 — EMPLOYEE SELF-SERVICE PORTAL
+# ─────────────────────────────────────────────────────────────────────────────
+sl = prs.slides.add_slide(BLANK)
+add_rect(sl, 0, 0, 13.33, 7.5, BG)
+add_rect(sl, 0, 0, 13.33, 1.45, NAVY_DARK)
+add_rect(sl, 0, 0, 0.18, 7.5, GOLD)
+
+add_text(sl, "EMPLOYEE SELF-SERVICE", 0.45, 0.12, 8, 0.32, size=10, bold=True, color=GOLD)
+add_text(sl, "HR Portal Features for Employees", 0.45, 0.42, 11, 0.7,
+         size=28, bold=True, color=WHITE)
+
+ess_features = [
+    ("Joining & Tenure",
+     "View confirmed joining date, probation status, "
+     "years of service, and upcoming work anniversaries.", NAVY),
+    ("Leave Balance",
+     "Live balance: Annual · Sick · Casual · Emergency. "
+     "View entitlement, used, pending and remaining days.", SUCCESS),
+    ("Digital Pay Slips",
+     "Download current and historical pay slips as PDF. "
+     "Breakdown of basic, allowances, deductions & net pay.", GOLD),
+    ("Offer Letter & Contract",
+     "Securely view your signed offer letter, employment "
+     "contract, and any amendments — all in one place.", PURPLE),
+    ("Salary Certificate",
+     "Request salary / employment certificates for visa, "
+     "bank loans, or rental — issued digitally by HR.", BLUE),
+    ("Complaints & Grievances",
+     "Submit confidential complaints to HR with categories, "
+     "attach evidence, and track resolution status.", ERROR),
+    ("HR Forms Library",
+     "Access all official forms: leave, reimbursement, training, "
+     "transfer requests, family addition, NOC, and more.", TEAL),
+    ("Leave History",
+     "Full audit trail of past leaves — dates, type, approval "
+     "chain, and remarks. Filter by year or category.", RGBColor(0xF5,0x9E,0x0B)),
+    ("HR Notifications",
+     "Push alerts for approvals, payslip availability, "
+     "policy updates, and HR announcements.", NAVY_LIGHT),
+]
+
+for i, (title, desc, c) in enumerate(ess_features):
+    bx = 0.45 + (i % 3) * 4.3
+    by = 1.65 + (i // 3) * 1.85
+    card_rect(sl, bx, by, 4.05, 1.7, WHITE)
+    add_rect(sl, bx, by, 4.05, 0.1, c)
+    ic = sl.shapes.add_shape(9, Inches(bx + 0.18), Inches(by + 0.22),
+                              Inches(0.55), Inches(0.55))
+    ic.fill.solid(); ic.fill.fore_color.rgb = c; ic.line.fill.background()
+    add_text(sl, str(i + 1), bx + 0.18, by + 0.3, 0.55, 0.4, size=15, bold=True,
+             color=WHITE, align=PP_ALIGN.CENTER)
+    add_text(sl, title, bx + 0.85, by + 0.28, 3.1, 0.4, size=13, bold=True,
+             color=NAVY_DARK)
+    add_text(sl, desc,  bx + 0.18, by + 0.85, 3.8, 0.85, size=10.5, color=TEXT_SEC)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SLIDE 17 — LEAVE APPROVAL FLOW
+# ─────────────────────────────────────────────────────────────────────────────
+sl = prs.slides.add_slide(BLANK)
+add_rect(sl, 0, 0, 13.33, 7.5, BG)
+add_rect(sl, 0, 0, 13.33, 1.45, NAVY_DARK)
+add_rect(sl, 0, 0, 0.18, 7.5, GOLD)
+
+add_text(sl, "LEAVE APPROVAL FLOW", 0.45, 0.12, 8, 0.32, size=10, bold=True, color=GOLD)
+add_text(sl, "From Request to Approval — End-to-End", 0.45, 0.42, 11, 0.7,
+         size=28, bold=True, color=WHITE)
+
+# Left-side: live leave balance card
+card_rect(sl, 0.45, 1.65, 3.7, 5.55, WHITE)
+add_rect(sl, 0.45, 1.65, 3.7, 0.5, NAVY)
+add_text(sl, "MY LEAVE BALANCE", 0.6, 1.74, 3.5, 0.35, size=11, bold=True,
+         color=GOLD_LIGHT)
+
+bals = [
+    ("Annual Leave", 18, 30, SUCCESS),
+    ("Sick Leave",    4, 14, BLUE),
+    ("Casual Leave",  2,  7, GOLD),
+    ("Emergency",     1,  3, ERROR),
+]
+for i, (lbl, used, total, c) in enumerate(bals):
+    by = 2.32 + i * 1.18
+    add_text(sl, lbl, 0.65, by, 3.4, 0.3, size=11, bold=True, color=NAVY_DARK)
+    rem = total - used
+    add_text(sl, str(rem) + " days remaining", 0.65, by + 0.3, 3.4, 0.3,
+             size=10, color=TEXT_SEC)
+    add_rect(sl, 0.65, by + 0.65, 3.4, 0.18, RGBColor(0xE5, 0xE7, 0xEB))
+    fill_w = 3.4 * used / total
+    add_rect(sl, 0.65, by + 0.65, fill_w, 0.18, c)
+    add_text(sl, "Used " + str(used) + " of " + str(total),
+             0.65, by + 0.86, 3.4, 0.25, size=9, color=TEXT_LIGHT,
+             align=PP_ALIGN.RIGHT)
+
+# Apply button
+add_rect(sl, 0.65, 6.7, 3.3, 0.4, GOLD)
+add_text(sl, "+ Apply for Leave", 0.65, 6.74, 3.3, 0.32, size=11, bold=True,
+         color=NAVY_DARK, align=PP_ALIGN.CENTER)
+
+# Right-side: approval flow steps
+flow_steps = [
+    ("01", "Employee Submits Request",
+     "Choose leave type, date range, attach reason. App auto-calculates "
+     "days deducted and warns of overlapping balance.", NAVY, SUCCESS, "Submitted"),
+    ("02", "Direct Manager Review",
+     "Real-time push notification to line manager. Manager approves, "
+     "rejects, or requests clarification — all in-app.", NAVY_LIGHT, SUCCESS, "Approved"),
+    ("03", "Department Head Approval",
+     "For leaves > 5 days, escalated to Department Head with full "
+     "team-coverage context shown.", GOLD, SUCCESS, "Approved"),
+    ("04", "HR Final Sign-Off",
+     "HR validates balance, updates leave records, and triggers "
+     "calendar block. Confirmation sent to employee.", NAVY, GOLD, "Pending"),
+    ("05", "Status & Audit Trail",
+     "Employee sees live status: Pending to Approved to Confirmed. "
+     "Full audit trail preserved for compliance.", PURPLE,
+     RGBColor(0xE5,0xE7,0xEB), "Awaiting"),
+]
+
+for i, (num, title, desc, nc, sc, slbl) in enumerate(flow_steps):
+    by = 1.65 + i * 1.13
+    card_rect(sl, 4.35, by, 8.6, 0.98, WHITE)
+    ic = sl.shapes.add_shape(9, Inches(4.45), Inches(by + 0.18),
+                              Inches(0.62), Inches(0.62))
+    ic.fill.solid(); ic.fill.fore_color.rgb = nc; ic.line.fill.background()
+    add_text(sl, num, 4.45, by + 0.28, 0.62, 0.45, size=14, bold=True,
+             color=GOLD, align=PP_ALIGN.CENTER)
+    add_text(sl, title, 5.2, by + 0.08, 5.5, 0.38, size=13, bold=True,
+             color=NAVY_DARK)
+    add_text(sl, desc,  5.2, by + 0.46, 7.5, 0.5, size=10, color=TEXT_SEC)
+    badge = sl.shapes.add_shape(5, Inches(11.45), Inches(by + 0.32),
+                                 Inches(1.4), Inches(0.34))
+    badge.fill.solid(); badge.fill.fore_color.rgb = sc
+    badge.line.fill.background()
+    sc_text_col = WHITE if sc != RGBColor(0xE5,0xE7,0xEB) else TEXT_SEC
+    add_text(sl, slbl, 11.45, by + 0.34, 1.4, 0.32, size=10, bold=True,
+             color=sc_text_col, align=PP_ALIGN.CENTER)
+    if i < 4:
+        add_rect(sl, 4.7, by + 0.99, 0.1, 0.14, GOLD)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SLIDE 18 — NEXT STEPS & CLOSING
 # ─────────────────────────────────────────────────────────────────────────────
 sl = prs.slides.add_slide(BLANK)
 add_rect(sl, 0, 0, 13.33, 7.5, NAVY_DARK)
