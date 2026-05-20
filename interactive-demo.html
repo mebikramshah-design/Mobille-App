@@ -682,6 +682,91 @@ body{
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:2px;}
+
+/* ===== HOME SUB-TABS ===== */
+#tab-home{display:flex!important;flex-direction:column;overflow:hidden;}
+.home-subtab-bar{
+  display:flex;gap:6px;padding:10px 16px 6px;
+  overflow-x:auto;scrollbar-width:none;background:#fff;
+  border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.home-subtab-bar::-webkit-scrollbar{display:none;}
+.home-subtab{
+  flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:12px;
+  font-weight:600;border:1.5px solid var(--border);background:#fff;
+  color:var(--text-sec);cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
+.home-subtab.active{
+  background:var(--primary);border-color:var(--primary);color:#fff;
+}
+.home-sub-content{overflow-y:auto;flex:1;}
+
+/* Management Team list */
+.mgmt-list{display:flex;flex-direction:column;gap:0;padding:0 0 16px;}
+.mgmt-card{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px;border-bottom:1px solid var(--border);
+  background:#fff;
+}
+.mgmt-avatar{
+  width:46px;height:46px;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-size:15px;
+  font-weight:700;color:#fff;flex-shrink:0;
+}
+.mgmt-info{flex:1;min-width:0;}
+.mgmt-name{font-size:14px;font-weight:700;color:var(--text);}
+.mgmt-title{font-size:12px;color:var(--text-sec);margin-top:1px;}
+.mgmt-dept{font-size:11px;color:var(--text-light);margin-top:2px;}
+.mgmt-badge{
+  font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;
+  background:rgba(27,58,107,0.1);color:var(--primary);flex-shrink:0;
+}
+
+/* Management Heads grid */
+.heads-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px 20px;
+}
+.head-card{
+  background:#fff;border:1px solid var(--border);border-radius:12px;
+  padding:14px 10px;display:flex;flex-direction:column;align-items:center;
+  gap:8px;text-align:center;
+}
+.head-avatar{
+  width:40px;height:40px;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-size:13px;
+  font-weight:700;color:#fff;flex-shrink:0;
+}
+.head-name{font-size:12px;font-weight:700;color:var(--text);}
+.head-dept{font-size:10px;color:var(--text-sec);margin-top:1px;}
+
+/* Employee list */
+.emp-search-wrap{padding:12px 16px 8px;background:#fff;position:sticky;top:0;z-index:2;}
+.emp-search{
+  width:100%;padding:9px 14px;border-radius:10px;
+  border:1.5px solid var(--border);font-size:13px;
+  background:var(--bg);outline:none;
+}
+.emp-search:focus{border-color:var(--primary);}
+.emp-count{font-size:11px;color:var(--text-light);padding:0 16px 6px;}
+.emp-list{display:flex;flex-direction:column;}
+.emp-row{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 16px;border-bottom:1px solid var(--border);
+}
+.emp-avatar{
+  width:38px;height:38px;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-size:13px;
+  font-weight:700;color:#fff;flex-shrink:0;
+  background:linear-gradient(135deg,var(--primary),var(--primary-light));
+}
+.emp-info{flex:1;min-width:0;}
+.emp-name{font-size:13px;font-weight:600;color:var(--text);}
+.emp-dept{font-size:11px;color:var(--text-sec);margin-top:1px;}
+.emp-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+.emp-id{font-size:10px;color:var(--text-light);}
+.emp-status{font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px;}
+.status-active{background:rgba(16,185,129,0.12);color:#065f46;}
+.status-leave{background:rgba(245,158,11,0.12);color:#92400e;}
 </style>
 </head>
 <body>
@@ -988,65 +1073,233 @@ body{
 
     <!-- Tab Contents -->
     <div class="tab-content" id="tab-home" style="display:block;">
-      <!-- Hero -->
-      <div class="hero-card">
-        <div class="hero-deco"></div>
-        <div class="hero-eyebrow">WELCOME TO DIFM</div>
-        <div class="hero-title">Redefining the Future for People and Places</div>
-        <div class="hero-subtitle">Qatar's premier integrated facility management solution</div>
+      <!-- Home Sub-Tab Bar -->
+      <div class="home-subtab-bar">
+        <button class="home-subtab active" id="hst-website"        onclick="switchHomeTab('website')">Website</button>
+        <button class="home-subtab"         id="hst-mgmt-team"     onclick="switchHomeTab('mgmt-team')">Mgmt Team</button>
+        <button class="home-subtab"         id="hst-mgmt-heads"    onclick="switchHomeTab('mgmt-heads')">Mgmt Heads</button>
+        <button class="home-subtab"         id="hst-employees"     onclick="switchHomeTab('employees')">Employees</button>
       </div>
-      <!-- About -->
-      <div class="section-header">
-        <div class="section-title">About Us</div>
-      </div>
-      <div class="about-text">
-        Darwish Interserve Facility Management (DIFM) is a joint venture between Darwish Holdings and Interserve, delivering world-class integrated facility management services across Qatar. With 14+ years of excellence, we serve government, aviation, education, and commercial sectors.
-      </div>
-      <!-- What We Do -->
-      <div class="section-header">
-        <div class="section-title">What We Do</div>
-      </div>
-      <div class="services-row">
-        <div class="service-card">
-          <div class="service-icon" style="background:rgba(27,58,107,0.1);">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-          </div>
-          <div class="service-name">Hard Services</div>
+
+      <!-- ── SUB-TAB 1: WEBSITE ── -->
+      <div class="home-sub-content" id="hsub-website" style="display:block;">
+        <div class="hero-card">
+          <div class="hero-deco"></div>
+          <div class="hero-eyebrow">WELCOME TO DIFM</div>
+          <div class="hero-title">Redefining the Future for People and Places</div>
+          <div class="hero-subtitle">Qatar's premier integrated facility management solution</div>
         </div>
-        <div class="service-card">
-          <div class="service-icon" style="background:rgba(201,168,76,0.15);">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <div class="service-name">Soft Services</div>
+        <div class="section-header"><div class="section-title">About Us</div></div>
+        <div class="about-text">Darwish Interserve Facility Management (DIFM) is a joint venture between Darwish Holdings and Interserve, delivering world-class integrated facility management services across Qatar. With 14+ years of excellence, we serve government, aviation, education, and commercial sectors.</div>
+        <div class="section-header"><div class="section-title">What We Do</div></div>
+        <div class="services-row">
+          <div class="service-card"><div class="service-icon" style="background:rgba(27,58,107,0.1);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="service-name">Hard Services</div></div>
+          <div class="service-card"><div class="service-icon" style="background:rgba(201,168,76,0.15);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="service-name">Soft Services</div></div>
+          <div class="service-card"><div class="service-icon" style="background:rgba(16,185,129,0.1);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg></div><div class="service-name">Managed Services</div></div>
         </div>
-        <div class="service-card">
-          <div class="service-icon" style="background:rgba(16,185,129,0.1);">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
-          </div>
-          <div class="service-name">Managed Services</div>
+        <div class="section-header"><div class="section-title">By The Numbers</div></div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-num">3,500+</div><div class="stat-label">Skilled Employees</div></div>
+          <div class="stat-card"><div class="stat-num">100+</div><div class="stat-label">Active Projects</div></div>
+          <div class="stat-card"><div class="stat-num">14+</div><div class="stat-label">Years of Excellence</div></div>
+          <div class="stat-card"><div class="stat-num" style="color:var(--accent);">🇶🇦</div><div class="stat-label">Based in Qatar</div></div>
+        </div>
+        <div class="section-header"><div class="section-title">Our Clients</div></div>
+        <div class="clients-row">
+          <div class="client-logo">HIA</div><div class="client-logo">QU</div><div class="client-logo">KAT</div><div class="client-logo">AZ</div><div class="client-logo" style="font-size:9px;">+20<br>more</div>
+        </div>
+        <div class="cta-row">
+          <button class="cta-btn cta-primary" onclick="switchTab('projects')">Explore Our Projects</button>
+          <button class="cta-btn cta-outline" style="border:1.5px solid var(--primary);">Contact Us Today</button>
         </div>
       </div>
-      <!-- Stats -->
-      <div class="section-header"><div class="section-title">By The Numbers</div></div>
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-num">3,500+</div><div class="stat-label">Skilled Employees</div></div>
-        <div class="stat-card"><div class="stat-num">100+</div><div class="stat-label">Active Projects</div></div>
-        <div class="stat-card"><div class="stat-num">14+</div><div class="stat-label">Years of Excellence</div></div>
-        <div class="stat-card"><div class="stat-num" style="color:var(--accent);">🇶🇦</div><div class="stat-label">Based in Qatar</div></div>
+
+      <!-- ── SUB-TAB 2: MANAGEMENT TEAM ── -->
+      <div class="home-sub-content" id="hsub-mgmt-team" style="display:none;">
+        <div class="section-header" style="padding-top:16px;">
+          <div class="section-title">Management Team</div>
+          <div class="section-sub">Executive leadership of Darwish Interserve</div>
+        </div>
+        <div class="mgmt-list">
+          <div class="mgmt-card">
+            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#1B3A6B,#2A5298);">KD</div>
+            <div class="mgmt-info">
+              <div class="mgmt-name">Khalid Al-Darwish</div>
+              <div class="mgmt-title">Chief Executive Officer</div>
+              <div class="mgmt-dept">Executive Leadership</div>
+            </div>
+            <div class="mgmt-badge" style="background:#EEF2FF;color:#1B3A6B;">CEO</div>
+          </div>
+          <div class="mgmt-card">
+            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#065f46,#10B981);">JR</div>
+            <div class="mgmt-info">
+              <div class="mgmt-name">James Richardson</div>
+              <div class="mgmt-title">Chief Operating Officer</div>
+              <div class="mgmt-dept">Operations</div>
+            </div>
+            <div class="mgmt-badge" style="background:#D1FAE5;color:#065f46;">COO</div>
+          </div>
+          <div class="mgmt-card">
+            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#92400e,#C9A84C);">AH</div>
+            <div class="mgmt-info">
+              <div class="mgmt-name">Ahmed Hassan</div>
+              <div class="mgmt-title">Chief Financial Officer</div>
+              <div class="mgmt-dept">Finance &amp; Accounts</div>
+            </div>
+            <div class="mgmt-badge" style="background:#FEF3C7;color:#92400e;">CFO</div>
+          </div>
+          <div class="mgmt-card">
+            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);">MQ</div>
+            <div class="mgmt-info">
+              <div class="mgmt-name">Mohammed Al-Qahtani</div>
+              <div class="mgmt-title">Chief Technology Officer</div>
+              <div class="mgmt-dept">Information Technology</div>
+            </div>
+            <div class="mgmt-badge" style="background:#EDE9FE;color:#4c1d95;">CTO</div>
+          </div>
+          <div class="mgmt-card">
+            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#9d174d,#ec4899);">SM</div>
+            <div class="mgmt-info">
+              <div class="mgmt-name">Sara Al-Mansoori</div>
+              <div class="mgmt-title">HR Director</div>
+              <div class="mgmt-dept">Human Resources</div>
+            </div>
+            <div class="mgmt-badge" style="background:#FCE7F3;color:#9d174d;">HR</div>
+          </div>
+          <div class="mgmt-card">
+            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#1e3a5f,#3B82F6);">DT</div>
+            <div class="mgmt-info">
+              <div class="mgmt-name">David Thompson</div>
+              <div class="mgmt-title">Operations Director</div>
+              <div class="mgmt-dept">FM Operations</div>
+            </div>
+            <div class="mgmt-badge" style="background:#DBEAFE;color:#1e40af;">OPS</div>
+          </div>
+        </div>
+        <div style="height:16px;"></div>
       </div>
-      <!-- Clients -->
-      <div class="section-header"><div class="section-title">Our Clients</div></div>
-      <div class="clients-row">
-        <div class="client-logo">HIA</div>
-        <div class="client-logo">QU</div>
-        <div class="client-logo">KAT</div>
-        <div class="client-logo">AZ</div>
-        <div class="client-logo" style="font-size:9px;">+20<br>more</div>
+
+      <!-- ── SUB-TAB 3: MANAGEMENT HEADS ── -->
+      <div class="home-sub-content" id="hsub-mgmt-heads" style="display:none;">
+        <div class="section-header" style="padding-top:16px;">
+          <div class="section-title">Management Heads</div>
+          <div class="section-sub">Department heads across DIFM</div>
+        </div>
+        <div class="heads-grid">
+          <div class="head-card">
+            <div class="head-avatar" style="background:linear-gradient(135deg,#1B3A6B,#2A5298);">IK</div>
+            <div class="head-name">Ibrahim Al-Khalidi</div>
+            <div class="head-dept" style="color:#1B3A6B;background:#EEF2FF;">Hard Services</div>
+          </div>
+          <div class="head-card">
+            <div class="head-avatar" style="background:linear-gradient(135deg,#065f46,#10B981);">NF</div>
+            <div class="head-name">Nadia Al-Farsi</div>
+            <div class="head-dept" style="color:#065f46;background:#D1FAE5;">Soft Services</div>
+          </div>
+          <div class="head-card">
+            <div class="head-avatar" style="background:linear-gradient(135deg,#92400e,#C9A84C);">RM</div>
+            <div class="head-name">Rania Mahmoud</div>
+            <div class="head-dept" style="color:#92400e;background:#FEF3C7;">Finance</div>
+          </div>
+          <div class="head-card">
+            <div class="head-avatar" style="background:linear-gradient(135deg,#7f1d1d,#EF4444);">PC</div>
+            <div class="head-name">Peter Collins</div>
+            <div class="head-dept" style="color:#7f1d1d;background:#FEE2E2;">HSE &amp; Safety</div>
+          </div>
+          <div class="head-card">
+            <div class="head-avatar" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);">OS</div>
+            <div class="head-name">Omar Siddiqui</div>
+            <div class="head-dept" style="color:#4c1d95;background:#EDE9FE;">IT &amp; Systems</div>
+          </div>
+          <div class="head-card">
+            <div class="head-avatar" style="background:linear-gradient(135deg,#9d174d,#ec4899);">AT</div>
+            <div class="head-name">Aisha Al-Thani</div>
+            <div class="head-dept" style="color:#9d174d;background:#FCE7F3;">Procurement</div>
+          </div>
+          <div class="head-card">
+            <div class="head-avatar" style="background:linear-gradient(135deg,#134e4a,#14b8a6);">FK</div>
+            <div class="head-name">Faisal Al-Kuwari</div>
+            <div class="head-dept" style="color:#134e4a;background:#CCFBF1;">Projects &amp; Eng.</div>
+          </div>
+          <div class="head-card">
+            <div class="head-avatar" style="background:linear-gradient(135deg,#1e3a5f,#3B82F6);">LB</div>
+            <div class="head-name">Linda Brown</div>
+            <div class="head-dept" style="color:#1e3a5f;background:#DBEAFE;">Client Relations</div>
+          </div>
+        </div>
+        <div style="height:16px;"></div>
       </div>
-      <!-- CTA -->
-      <div class="cta-row">
-        <button class="cta-btn cta-primary" onclick="switchTab('projects')">Explore Our Projects</button>
-        <button class="cta-btn cta-outline" style="border:1.5px solid var(--primary);">Contact Us Today</button>
+
+      <!-- ── SUB-TAB 4: EMPLOYEE LIST ── -->
+      <div class="home-sub-content" id="hsub-employees" style="display:none;">
+        <div class="emp-search-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="emp-search" id="emp-search-input" type="text" placeholder="Search employees…" oninput="filterEmployees(this.value)">
+        </div>
+        <div class="emp-count" id="emp-count">Showing 12 employees</div>
+        <div class="emp-list" id="emp-list">
+          <div class="emp-row" data-name="mohammed al-mansoori" data-dept="fm operations">
+            <div class="emp-avatar" style="background:#1B3A6B;">MM</div>
+            <div class="emp-info"><div class="emp-name">Mohammed Al-Mansoori</div><div class="emp-dept">FM Operations</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-001</div><div class="emp-status status-active">Active</div></div>
+          </div>
+          <div class="emp-row" data-name="ahmed al-rashid" data-dept="hard services">
+            <div class="emp-avatar" style="background:#10B981;">AR</div>
+            <div class="emp-info"><div class="emp-name">Ahmed Al-Rashid</div><div class="emp-dept">Hard Services</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-002</div><div class="emp-status status-active">Active</div></div>
+          </div>
+          <div class="emp-row" data-name="sara al-kaabi" data-dept="soft services">
+            <div class="emp-avatar" style="background:#ec4899;">SK</div>
+            <div class="emp-info"><div class="emp-name">Sara Al-Kaabi</div><div class="emp-dept">Soft Services</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-003</div><div class="emp-status status-active">Active</div></div>
+          </div>
+          <div class="emp-row" data-name="khalid al-suwaidi" data-dept="hse & safety">
+            <div class="emp-avatar" style="background:#EF4444;">KS</div>
+            <div class="emp-info"><div class="emp-name">Khalid Al-Suwaidi</div><div class="emp-dept">HSE &amp; Safety</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-004</div><div class="emp-status status-leave">On Leave</div></div>
+          </div>
+          <div class="emp-row" data-name="fatima al-thani" data-dept="finance">
+            <div class="emp-avatar" style="background:#C9A84C;">FT</div>
+            <div class="emp-info"><div class="emp-name">Fatima Al-Thani</div><div class="emp-dept">Finance</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-005</div><div class="emp-status status-active">Active</div></div>
+          </div>
+          <div class="emp-row" data-name="james wilson" data-dept="it & systems">
+            <div class="emp-avatar" style="background:#7c3aed;">JW</div>
+            <div class="emp-info"><div class="emp-name">James Wilson</div><div class="emp-dept">IT &amp; Systems</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-006</div><div class="emp-status status-active">Active</div></div>
+          </div>
+          <div class="emp-row" data-name="omar al-hamad" data-dept="projects & engineering">
+            <div class="emp-avatar" style="background:#14b8a6;">OH</div>
+            <div class="emp-info"><div class="emp-name">Omar Al-Hamad</div><div class="emp-dept">Projects &amp; Engineering</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-007</div><div class="emp-status status-active">Active</div></div>
+          </div>
+          <div class="emp-row" data-name="nadia al-baker" data-dept="procurement">
+            <div class="emp-avatar" style="background:#9d174d;">NB</div>
+            <div class="emp-info"><div class="emp-name">Nadia Al-Baker</div><div class="emp-dept">Procurement</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-008</div><div class="emp-status status-active">Active</div></div>
+          </div>
+          <div class="emp-row" data-name="peter scott" data-dept="fm operations">
+            <div class="emp-avatar" style="background:#3B82F6;">PS</div>
+            <div class="emp-info"><div class="emp-name">Peter Scott</div><div class="emp-dept">FM Operations</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-009</div><div class="emp-status status-active">Active</div></div>
+          </div>
+          <div class="emp-row" data-name="aisha al-mahmoud" data-dept="human resources">
+            <div class="emp-avatar" style="background:#f97316;">AM</div>
+            <div class="emp-info"><div class="emp-name">Aisha Al-Mahmoud</div><div class="emp-dept">Human Resources</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-010</div><div class="emp-status status-active">Active</div></div>
+          </div>
+          <div class="emp-row" data-name="carlos mendez" data-dept="hard services">
+            <div class="emp-avatar" style="background:#0891b2;">CM</div>
+            <div class="emp-info"><div class="emp-name">Carlos Mendez</div><div class="emp-dept">Hard Services</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-011</div><div class="emp-status status-leave">On Leave</div></div>
+          </div>
+          <div class="emp-row" data-name="reem al-dosari" data-dept="client relations">
+            <div class="emp-avatar" style="background:#6366f1;">RD</div>
+            <div class="emp-info"><div class="emp-name">Reem Al-Dosari</div><div class="emp-dept">Client Relations</div></div>
+            <div class="emp-right"><div class="emp-id">DI-2024-012</div><div class="emp-status status-active">Active</div></div>
+          </div>
+        </div>
+        <div style="height:16px;"></div>
       </div>
     </div>
 
@@ -1609,6 +1862,33 @@ function updatePwStrength() {
 }
 
 // ===== TABS =====
+// ===== HOME SUB-TABS =====
+function switchHomeTab(tab) {
+  var tabs = ['website','mgmt-team','mgmt-heads','employees'];
+  tabs.forEach(function(t){
+    var content = document.getElementById('hsub-' + t);
+    var btn = document.getElementById('hst-' + t);
+    if (content) content.style.display = (t === tab) ? 'block' : 'none';
+    if (btn) btn.classList.toggle('active', t === tab);
+  });
+}
+
+function filterEmployees(query) {
+  var q = query.trim().toLowerCase();
+  var rows = document.querySelectorAll('.emp-row');
+  var visible = 0;
+  rows.forEach(function(row){
+    var name = (row.querySelector('.emp-name') || {textContent:''}).textContent.toLowerCase();
+    var dept = (row.querySelector('.emp-dept') || {textContent:''}).textContent.toLowerCase();
+    var id   = (row.querySelector('.emp-id')   || {textContent:''}).textContent.toLowerCase();
+    var show = !q || name.includes(q) || dept.includes(q) || id.includes(q);
+    row.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  var countEl = document.getElementById('emp-count');
+  if (countEl) countEl.textContent = visible + ' employee' + (visible !== 1 ? 's' : '') + ' found';
+}
+
 function switchTab(tab) {
   var tabs = ['home','events','projects','profile'];
   tabs.forEach(function(t){
