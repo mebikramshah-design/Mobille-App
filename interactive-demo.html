@@ -701,46 +701,96 @@ body{
 }
 .home-sub-content{overflow-y:auto;flex:1;}
 
-/* Management Team list */
-.mgmt-list{display:flex;flex-direction:column;gap:0;padding:0 0 16px;}
-.mgmt-card{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 16px;border-bottom:1px solid var(--border);
-  background:#fff;
+/* ── Org Chart ── */
+.org-wrap{padding:16px 14px 24px;background:var(--bg);}
+.org-ceo-row{display:flex;justify-content:center;margin-bottom:0;}
+.org-node{
+  background:#fff;border:1.5px solid var(--border);border-radius:14px;
+  padding:10px 12px;display:flex;align-items:center;gap:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);position:relative;
 }
-.mgmt-avatar{
-  width:46px;height:46px;border-radius:50%;display:flex;
-  align-items:center;justify-content:center;font-size:15px;
-  font-weight:700;color:#fff;flex-shrink:0;
-}
-.mgmt-info{flex:1;min-width:0;}
-.mgmt-name{font-size:14px;font-weight:700;color:var(--text);}
-.mgmt-title{font-size:12px;color:var(--text-sec);margin-top:1px;}
-.mgmt-dept{font-size:11px;color:var(--text-light);margin-top:2px;}
-.mgmt-badge{
-  font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;
-  background:rgba(27,58,107,0.1);color:var(--primary);flex-shrink:0;
-}
-
-/* Management Heads grid */
-.heads-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px 20px;
-}
-.head-card{
-  background:#fff;border:1px solid var(--border);border-radius:12px;
-  padding:14px 10px;display:flex;flex-direction:column;align-items:center;
-  gap:8px;text-align:center;
-}
-.head-avatar{
-  width:40px;height:40px;border-radius:50%;display:flex;
+.org-node.ceo{border-color:var(--accent);border-width:2px;min-width:220px;}
+.org-node.coo{border-color:#10B981;}
+.org-node.cfo{border-color:#C9A84C;}
+.org-node.cto{border-color:#7c3aed;}
+.org-avatar{
+  width:38px;height:38px;border-radius:50%;display:flex;
   align-items:center;justify-content:center;font-size:13px;
   font-weight:700;color:#fff;flex-shrink:0;
 }
-.head-name{font-size:12px;font-weight:700;color:var(--text);}
-.head-dept{font-size:10px;color:var(--text-sec);margin-top:1px;}
+.org-info{flex:1;min-width:0;}
+.org-name{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.org-title{font-size:10px;color:var(--text-sec);margin-top:1px;}
+.org-role{
+  font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px;
+  flex-shrink:0;
+}
+/* connector lines */
+.org-connector-down{
+  width:2px;height:16px;background:var(--border);margin:0 auto;
+}
+.org-connector-branch{
+  display:flex;flex-direction:column;align-items:center;
+}
+.org-branch-h{
+  display:flex;align-items:flex-start;gap:0;position:relative;width:100%;
+}
+.org-branch-h::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:2px;height:16px;background:var(--border);
+}
+.org-col{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:0;
+}
+.org-col-line{
+  width:2px;height:16px;background:var(--border);
+}
+.org-h-line{
+  height:2px;background:var(--border);width:100%;margin-top:0;
+}
+.org-branch-wrapper{
+  display:flex;flex-direction:column;align-items:center;width:100%;
+}
+/* L2 row: 3 columns */
+.org-l2-row{
+  display:flex;gap:6px;width:100%;justify-content:center;margin-top:0;
+}
+/* L3 sub row under COO */
+.org-l3-row{
+  display:flex;gap:6px;justify-content:center;margin-top:0;
+}
+.org-node.sm{border-color:#ec4899;}
+.org-node.ops{border-color:#3B82F6;}
+
+/* Management Heads detailed cards */
+.heads-list{display:flex;flex-direction:column;gap:0;}
+.head-detail-card{
+  background:#fff;border-bottom:1px solid var(--border);
+  padding:14px 16px;
+}
+.head-detail-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.head-avatar{
+  width:44px;height:44px;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-size:14px;
+  font-weight:700;color:#fff;flex-shrink:0;
+}
+.head-name{font-size:13px;font-weight:700;color:var(--text);}
+.head-dept-badge{
+  font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;margin-top:3px;
+  display:inline-block;
+}
+.head-reports{font-size:11px;color:var(--text-light);margin-top:1px;}
+.head-detail-meta{
+  display:flex;gap:8px;flex-wrap:wrap;
+}
+.head-meta-chip{
+  font-size:10px;background:var(--bg);border:1px solid var(--border);
+  border-radius:8px;padding:3px 9px;color:var(--text-sec);
+}
+.head-meta-chip strong{color:var(--text);font-weight:700;}
 
 /* Employee list */
-.emp-search-wrap{padding:12px 16px 8px;background:#fff;position:sticky;top:0;z-index:2;}
+.emp-search-wrap{padding:12px 16px 8px;background:#fff;position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);}
 .emp-search{
   width:100%;padding:9px 14px;border-radius:10px;
   border:1.5px solid var(--border);font-size:13px;
@@ -1116,118 +1166,275 @@ body{
 
       <!-- ── SUB-TAB 2: MANAGEMENT TEAM ── -->
       <div class="home-sub-content" id="hsub-mgmt-team" style="display:none;">
-        <div class="section-header" style="padding-top:16px;">
-          <div class="section-title">Management Team</div>
-          <div class="section-sub">Executive leadership of Darwish Interserve</div>
+        <div class="section-header" style="padding-top:14px;">
+          <div class="section-title">Organisation Chart</div>
+          <div class="section-sub">Darwish Interserve leadership hierarchy</div>
         </div>
-        <div class="mgmt-list">
-          <div class="mgmt-card">
-            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#1B3A6B,#2A5298);">KD</div>
-            <div class="mgmt-info">
-              <div class="mgmt-name">Khalid Al-Darwish</div>
-              <div class="mgmt-title">Chief Executive Officer</div>
-              <div class="mgmt-dept">Executive Leadership</div>
+
+        <div class="org-wrap">
+          <!-- CEO -->
+          <div class="org-ceo-row">
+            <div class="org-node ceo">
+              <div class="org-avatar" style="background:linear-gradient(135deg,#1B3A6B,#2A5298);">KD</div>
+              <div class="org-info">
+                <div class="org-name">Khalid Al-Darwish</div>
+                <div class="org-title">Chief Executive Officer</div>
+              </div>
+              <div class="org-role" style="background:#EEF2FF;color:#1B3A6B;">CEO</div>
             </div>
-            <div class="mgmt-badge" style="background:#EEF2FF;color:#1B3A6B;">CEO</div>
           </div>
-          <div class="mgmt-card">
-            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#065f46,#10B981);">JR</div>
-            <div class="mgmt-info">
-              <div class="mgmt-name">James Richardson</div>
-              <div class="mgmt-title">Chief Operating Officer</div>
-              <div class="mgmt-dept">Operations</div>
-            </div>
-            <div class="mgmt-badge" style="background:#D1FAE5;color:#065f46;">COO</div>
+
+          <!-- CEO → L2 connector -->
+          <div class="org-connector-down"></div>
+
+          <!-- Horizontal spread line across 3 branches -->
+          <div style="display:flex;align-items:flex-start;position:relative;gap:6px;">
+            <!-- Left half-line -->
+            <div style="flex:1;height:2px;background:var(--border);margin-top:0;align-self:flex-start;margin-top:0px;"></div>
+            <!-- Center dot -->
+            <div style="width:2px;flex-shrink:0;"></div>
+            <!-- Right half-line -->
+            <div style="flex:1;height:2px;background:var(--border);margin-top:0px;align-self:flex-start;"></div>
           </div>
-          <div class="mgmt-card">
-            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#92400e,#C9A84C);">AH</div>
-            <div class="mgmt-info">
-              <div class="mgmt-name">Ahmed Hassan</div>
-              <div class="mgmt-title">Chief Financial Officer</div>
-              <div class="mgmt-dept">Finance &amp; Accounts</div>
+
+          <!-- L2: COO · CFO · CTO -->
+          <div class="org-l2-row">
+            <!-- COO branch -->
+            <div class="org-col">
+              <div class="org-col-line"></div>
+              <div class="org-node coo" style="width:100%;min-width:0;">
+                <div class="org-avatar" style="background:linear-gradient(135deg,#065f46,#10B981);width:32px;height:32px;font-size:11px;">JR</div>
+                <div class="org-info">
+                  <div class="org-name">James Richardson</div>
+                  <div class="org-title">Chief Operating Officer</div>
+                </div>
+                <div class="org-role" style="background:#D1FAE5;color:#065f46;">COO</div>
+              </div>
+              <!-- COO → L3 connector -->
+              <div style="display:flex;gap:4px;width:100%;margin-top:0;">
+                <div style="flex:1;height:2px;background:var(--border);margin-top:16px;align-self:flex-start;"></div>
+                <div style="width:2px;flex-shrink:0;"></div>
+                <div style="flex:1;height:2px;background:var(--border);margin-top:16px;align-self:flex-start;"></div>
+              </div>
+              <!-- L3 under COO: HR Dir + Ops Dir -->
+              <div class="org-l3-row" style="width:100%;">
+                <div class="org-col" style="flex:1;">
+                  <div class="org-col-line"></div>
+                  <div class="org-node sm" style="width:100%;min-width:0;padding:8px;">
+                    <div class="org-avatar" style="background:linear-gradient(135deg,#9d174d,#ec4899);width:28px;height:28px;font-size:10px;">SM</div>
+                    <div class="org-info">
+                      <div class="org-name" style="font-size:10px;">Sara Al-Mansoori</div>
+                      <div class="org-title" style="font-size:9px;">HR Director</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="org-col" style="flex:1;">
+                  <div class="org-col-line"></div>
+                  <div class="org-node ops" style="width:100%;min-width:0;padding:8px;">
+                    <div class="org-avatar" style="background:linear-gradient(135deg,#1e3a5f,#3B82F6);width:28px;height:28px;font-size:10px;">DT</div>
+                    <div class="org-info">
+                      <div class="org-name" style="font-size:10px;">David Thompson</div>
+                      <div class="org-title" style="font-size:9px;">Ops Director</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="mgmt-badge" style="background:#FEF3C7;color:#92400e;">CFO</div>
+
+            <!-- CFO branch -->
+            <div class="org-col">
+              <div class="org-col-line"></div>
+              <div class="org-node cfo" style="width:100%;min-width:0;">
+                <div class="org-avatar" style="background:linear-gradient(135deg,#92400e,#C9A84C);width:32px;height:32px;font-size:11px;">AH</div>
+                <div class="org-info">
+                  <div class="org-name">Ahmed Hassan</div>
+                  <div class="org-title">Chief Financial Officer</div>
+                </div>
+                <div class="org-role" style="background:#FEF3C7;color:#92400e;">CFO</div>
+              </div>
+            </div>
+
+            <!-- CTO branch -->
+            <div class="org-col">
+              <div class="org-col-line"></div>
+              <div class="org-node cto" style="width:100%;min-width:0;">
+                <div class="org-avatar" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);width:32px;height:32px;font-size:11px;">MQ</div>
+                <div class="org-info">
+                  <div class="org-name">Mohammed Al-Qahtani</div>
+                  <div class="org-title">Chief Technology Officer</div>
+                </div>
+                <div class="org-role" style="background:#EDE9FE;color:#4c1d95;">CTO</div>
+              </div>
+            </div>
           </div>
-          <div class="mgmt-card">
-            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);">MQ</div>
-            <div class="mgmt-info">
-              <div class="mgmt-name">Mohammed Al-Qahtani</div>
-              <div class="mgmt-title">Chief Technology Officer</div>
-              <div class="mgmt-dept">Information Technology</div>
+
+          <!-- Legend -->
+          <div style="margin-top:18px;padding:10px 12px;background:#fff;border-radius:10px;border:1px solid var(--border);">
+            <div style="font-size:10px;font-weight:700;color:var(--text-sec);margin-bottom:6px;letter-spacing:.5px;">REPORTING LINES</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text-sec);"><div style="width:10px;height:3px;border-radius:2px;background:#1B3A6B;"></div>CEO</div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text-sec);"><div style="width:10px;height:3px;border-radius:2px;background:#10B981;"></div>COO</div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text-sec);"><div style="width:10px;height:3px;border-radius:2px;background:#C9A84C;"></div>CFO</div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text-sec);"><div style="width:10px;height:3px;border-radius:2px;background:#7c3aed;"></div>CTO</div>
             </div>
-            <div class="mgmt-badge" style="background:#EDE9FE;color:#4c1d95;">CTO</div>
-          </div>
-          <div class="mgmt-card">
-            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#9d174d,#ec4899);">SM</div>
-            <div class="mgmt-info">
-              <div class="mgmt-name">Sara Al-Mansoori</div>
-              <div class="mgmt-title">HR Director</div>
-              <div class="mgmt-dept">Human Resources</div>
-            </div>
-            <div class="mgmt-badge" style="background:#FCE7F3;color:#9d174d;">HR</div>
-          </div>
-          <div class="mgmt-card">
-            <div class="mgmt-avatar" style="background:linear-gradient(135deg,#1e3a5f,#3B82F6);">DT</div>
-            <div class="mgmt-info">
-              <div class="mgmt-name">David Thompson</div>
-              <div class="mgmt-title">Operations Director</div>
-              <div class="mgmt-dept">FM Operations</div>
-            </div>
-            <div class="mgmt-badge" style="background:#DBEAFE;color:#1e40af;">OPS</div>
           </div>
         </div>
-        <div style="height:16px;"></div>
       </div>
 
       <!-- ── SUB-TAB 3: MANAGEMENT HEADS ── -->
       <div class="home-sub-content" id="hsub-mgmt-heads" style="display:none;">
-        <div class="section-header" style="padding-top:16px;">
-          <div class="section-title">Management Heads</div>
-          <div class="section-sub">Department heads across DIFM</div>
+        <div class="section-header" style="padding-top:14px;">
+          <div class="section-title">Department Heads</div>
+          <div class="section-sub">Team leads &amp; their departments</div>
         </div>
-        <div class="heads-grid">
-          <div class="head-card">
-            <div class="head-avatar" style="background:linear-gradient(135deg,#1B3A6B,#2A5298);">IK</div>
-            <div class="head-name">Ibrahim Al-Khalidi</div>
-            <div class="head-dept" style="color:#1B3A6B;background:#EEF2FF;">Hard Services</div>
+        <div class="heads-list">
+
+          <!-- Ibrahim Al-Khalidi — Hard Services → reports to COO -->
+          <div class="head-detail-card">
+            <div class="head-detail-top">
+              <div class="head-avatar" style="background:linear-gradient(135deg,#1B3A6B,#2A5298);">IK</div>
+              <div>
+                <div class="head-name">Ibrahim Al-Khalidi</div>
+                <span class="head-dept-badge" style="background:#EEF2FF;color:#1B3A6B;">Head of Hard Services</span>
+                <div class="head-reports">Reports to: James Richardson (COO)</div>
+              </div>
+            </div>
+            <div class="head-detail-meta">
+              <div class="head-meta-chip"><strong>Team:</strong> 320 staff</div>
+              <div class="head-meta-chip"><strong>Sites:</strong> 45+</div>
+              <div class="head-meta-chip">MEP · Civil · HVAC</div>
+              <div class="head-meta-chip">Preventive Maintenance</div>
+            </div>
           </div>
-          <div class="head-card">
-            <div class="head-avatar" style="background:linear-gradient(135deg,#065f46,#10B981);">NF</div>
-            <div class="head-name">Nadia Al-Farsi</div>
-            <div class="head-dept" style="color:#065f46;background:#D1FAE5;">Soft Services</div>
+
+          <!-- Nadia Al-Farsi — Soft Services → reports to COO -->
+          <div class="head-detail-card">
+            <div class="head-detail-top">
+              <div class="head-avatar" style="background:linear-gradient(135deg,#065f46,#10B981);">NF</div>
+              <div>
+                <div class="head-name">Nadia Al-Farsi</div>
+                <span class="head-dept-badge" style="background:#D1FAE5;color:#065f46;">Head of Soft Services</span>
+                <div class="head-reports">Reports to: James Richardson (COO)</div>
+              </div>
+            </div>
+            <div class="head-detail-meta">
+              <div class="head-meta-chip"><strong>Team:</strong> 280 staff</div>
+              <div class="head-meta-chip"><strong>Sites:</strong> 38+</div>
+              <div class="head-meta-chip">Cleaning · Landscaping</div>
+              <div class="head-meta-chip">Security · Pest Control</div>
+            </div>
           </div>
-          <div class="head-card">
-            <div class="head-avatar" style="background:linear-gradient(135deg,#92400e,#C9A84C);">RM</div>
-            <div class="head-name">Rania Mahmoud</div>
-            <div class="head-dept" style="color:#92400e;background:#FEF3C7;">Finance</div>
+
+          <!-- Faisal Al-Kuwari — Projects → reports to COO via Ops Dir -->
+          <div class="head-detail-card">
+            <div class="head-detail-top">
+              <div class="head-avatar" style="background:linear-gradient(135deg,#134e4a,#14b8a6);">FK</div>
+              <div>
+                <div class="head-name">Faisal Al-Kuwari</div>
+                <span class="head-dept-badge" style="background:#CCFBF1;color:#134e4a;">Head of Projects &amp; Eng.</span>
+                <div class="head-reports">Reports to: David Thompson (Ops Dir)</div>
+              </div>
+            </div>
+            <div class="head-detail-meta">
+              <div class="head-meta-chip"><strong>Team:</strong> 95 engineers</div>
+              <div class="head-meta-chip"><strong>Projects:</strong> 100+</div>
+              <div class="head-meta-chip">Fit-Out · Refurb</div>
+              <div class="head-meta-chip">Project Delivery</div>
+            </div>
           </div>
-          <div class="head-card">
-            <div class="head-avatar" style="background:linear-gradient(135deg,#7f1d1d,#EF4444);">PC</div>
-            <div class="head-name">Peter Collins</div>
-            <div class="head-dept" style="color:#7f1d1d;background:#FEE2E2;">HSE &amp; Safety</div>
+
+          <!-- Rania Mahmoud — Finance → reports to CFO -->
+          <div class="head-detail-card">
+            <div class="head-detail-top">
+              <div class="head-avatar" style="background:linear-gradient(135deg,#92400e,#C9A84C);">RM</div>
+              <div>
+                <div class="head-name">Rania Mahmoud</div>
+                <span class="head-dept-badge" style="background:#FEF3C7;color:#92400e;">Head of Finance</span>
+                <div class="head-reports">Reports to: Ahmed Hassan (CFO)</div>
+              </div>
+            </div>
+            <div class="head-detail-meta">
+              <div class="head-meta-chip"><strong>Team:</strong> 28 staff</div>
+              <div class="head-meta-chip">Budgeting · Payroll</div>
+              <div class="head-meta-chip">Accounts · Reporting</div>
+              <div class="head-meta-chip">QAR 500M+ portfolio</div>
+            </div>
           </div>
-          <div class="head-card">
-            <div class="head-avatar" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);">OS</div>
-            <div class="head-name">Omar Siddiqui</div>
-            <div class="head-dept" style="color:#4c1d95;background:#EDE9FE;">IT &amp; Systems</div>
+
+          <!-- Aisha Al-Thani — Procurement → reports to CFO -->
+          <div class="head-detail-card">
+            <div class="head-detail-top">
+              <div class="head-avatar" style="background:linear-gradient(135deg,#9d174d,#ec4899);">AT</div>
+              <div>
+                <div class="head-name">Aisha Al-Thani</div>
+                <span class="head-dept-badge" style="background:#FCE7F3;color:#9d174d;">Head of Procurement</span>
+                <div class="head-reports">Reports to: Ahmed Hassan (CFO)</div>
+              </div>
+            </div>
+            <div class="head-detail-meta">
+              <div class="head-meta-chip"><strong>Team:</strong> 18 staff</div>
+              <div class="head-meta-chip">Vendor Management</div>
+              <div class="head-meta-chip">Contracts · Sourcing</div>
+              <div class="head-meta-chip">200+ approved vendors</div>
+            </div>
           </div>
-          <div class="head-card">
-            <div class="head-avatar" style="background:linear-gradient(135deg,#9d174d,#ec4899);">AT</div>
-            <div class="head-name">Aisha Al-Thani</div>
-            <div class="head-dept" style="color:#9d174d;background:#FCE7F3;">Procurement</div>
+
+          <!-- Omar Siddiqui — IT → reports to CTO -->
+          <div class="head-detail-card">
+            <div class="head-detail-top">
+              <div class="head-avatar" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);">OS</div>
+              <div>
+                <div class="head-name">Omar Siddiqui</div>
+                <span class="head-dept-badge" style="background:#EDE9FE;color:#4c1d95;">Head of IT &amp; Systems</span>
+                <div class="head-reports">Reports to: Mohammed Al-Qahtani (CTO)</div>
+              </div>
+            </div>
+            <div class="head-detail-meta">
+              <div class="head-meta-chip"><strong>Team:</strong> 24 staff</div>
+              <div class="head-meta-chip">CAFM · CMMS</div>
+              <div class="head-meta-chip">Infrastructure · Support</div>
+              <div class="head-meta-chip">Mobile App Platform</div>
+            </div>
           </div>
-          <div class="head-card">
-            <div class="head-avatar" style="background:linear-gradient(135deg,#134e4a,#14b8a6);">FK</div>
-            <div class="head-name">Faisal Al-Kuwari</div>
-            <div class="head-dept" style="color:#134e4a;background:#CCFBF1;">Projects &amp; Eng.</div>
+
+          <!-- Peter Collins — HSE → reports to COO -->
+          <div class="head-detail-card">
+            <div class="head-detail-top">
+              <div class="head-avatar" style="background:linear-gradient(135deg,#7f1d1d,#EF4444);">PC</div>
+              <div>
+                <div class="head-name">Peter Collins</div>
+                <span class="head-dept-badge" style="background:#FEE2E2;color:#7f1d1d;">Head of HSE &amp; Safety</span>
+                <div class="head-reports">Reports to: James Richardson (COO)</div>
+              </div>
+            </div>
+            <div class="head-detail-meta">
+              <div class="head-meta-chip"><strong>Team:</strong> 15 officers</div>
+              <div class="head-meta-chip">Audits · Inspections</div>
+              <div class="head-meta-chip">ISO 45001 certified</div>
+              <div class="head-meta-chip">Incident Management</div>
+            </div>
           </div>
-          <div class="head-card">
-            <div class="head-avatar" style="background:linear-gradient(135deg,#1e3a5f,#3B82F6);">LB</div>
-            <div class="head-name">Linda Brown</div>
-            <div class="head-dept" style="color:#1e3a5f;background:#DBEAFE;">Client Relations</div>
+
+          <!-- Linda Brown — Client Relations → reports to COO via Ops Dir -->
+          <div class="head-detail-card">
+            <div class="head-detail-top">
+              <div class="head-avatar" style="background:linear-gradient(135deg,#1e3a5f,#3B82F6);">LB</div>
+              <div>
+                <div class="head-name">Linda Brown</div>
+                <span class="head-dept-badge" style="background:#DBEAFE;color:#1e3a5f;">Head of Client Relations</span>
+                <div class="head-reports">Reports to: David Thompson (Ops Dir)</div>
+              </div>
+            </div>
+            <div class="head-detail-meta">
+              <div class="head-meta-chip"><strong>Team:</strong> 12 staff</div>
+              <div class="head-meta-chip">SLA Management</div>
+              <div class="head-meta-chip">Client Satisfaction</div>
+              <div class="head-meta-chip">50+ active accounts</div>
+            </div>
           </div>
+
         </div>
-        <div style="height:16px;"></div>
+        <div style="height:20px;"></div>
       </div>
 
       <!-- ── SUB-TAB 4: EMPLOYEE LIST ── -->
